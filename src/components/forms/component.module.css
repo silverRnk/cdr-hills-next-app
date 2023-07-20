@@ -1,0 +1,15 @@
+.input-row{
+    --columns:1;
+    display: grid;
+}
+
+.required-indicator{
+    color:var(--app-red);
+}
+
+@media screen and (max-width: 480px) {
+    .input-row{
+        grid-template-columns: 1fr;
+        grid-auto-rows: 1fr;
+    }
+}
