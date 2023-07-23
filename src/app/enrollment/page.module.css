@@ -10,8 +10,9 @@
     width: 100%;
     padding: 20px;
     margin-bottom: 2rem;
-    
 }
+
+
 
 .page-header{
     width: 100%;
@@ -30,6 +31,12 @@
     border-radius: 15px;
     background-color: white;
     box-shadow: 0 0 10px black;
+    display:flex;
+    flex-direction: column;
+}
+
+.form-container > form {
+    flex:1;
 }
 
 .form-header{

@@ -3,6 +3,12 @@ import React, { useEffect } from "react";
 import "./component.css";
 import styles from "./component.module.css";
 import { styled } from "styled-components";
+import {
+  Input,
+  IsRequiredIndicator,
+  Label,
+  ValidationFeedback,
+} from "../../../styles/styled-component/form-components";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -35,6 +41,8 @@ const IconWrapper = styled.div<{ hidden: boolean }>`
 `;
 
 type TextInputType = Exclude<React.HTMLInputTypeAttribute, "radio">;
+
+type InputPartial = "feedbackID";
 /**
  *
  * @implements React.FormHTMLAttributes<HTMLInputElement>
@@ -42,10 +50,10 @@ type TextInputType = Exclude<React.HTMLInputTypeAttribute, "radio">;
  * @property {boolean} isFeedbackVisible - set if feedback is shown or not
  * @property {string} feedbackMessage
  */
-export interface ITextInput
-  extends React.FormHTMLAttributes<HTMLInputElement> {
+export interface ITextInput {
   type?: TextInputType;
   label?: string;
+  name?: string;
   isInvalid?: boolean;
   isFeedbackVisible?: boolean;
   feedbackMessage?: string;
@@ -55,6 +63,11 @@ export interface ITextInput
   icon?: React.ReactNode;
   onIconClick?: (event: React.ChangeEvent<any>) => void;
   required?: boolean;
+  inputProps?: Exclude<
+    React.FormHTMLAttributes<HTMLInputElement>,
+    "type" | "required"
+  >;
+  disabled?:boolean
 }
 
 const initValue: ITextInput = {
@@ -72,59 +85,41 @@ const TextInput = (props: ITextInput = initValue) => {
     isFeedbackVisible,
     feedbackMessage,
     icon,
-    onIconClick
+    onIconClick,
+    disabled
   } = props;
 
-  useEffect(() => {
-    let textInputDOM, feedbackDOM;
-    feedbackDOM = document.querySelector(`#${name}-message`);
-    if (isInvalid) {
-      textInputDOM = document.querySelector(`#${name}`);
-      textInputDOM?.classList.remove("text-input-valid");
-      textInputDOM?.classList.add("text-input-invalid");
-
-      feedbackDOM?.classList.remove("validation-feedback-hidden");
-      feedbackDOM?.classList.add("validation-feedback-invalid");
-    }
-
-    if (isFeedbackVisible) {
-      feedbackDOM?.classList.remove("validation-feedback-hidden");
-    }
-
-    if (!isFeedbackVisible && !isInvalid) {
-      feedbackDOM?.classList.add("validation-feedback-hidden");
-      feedbackDOM?.classList.remove("validation-feedback-invalid");
-    }
-  }, [isInvalid, name, isFeedbackVisible]);
 
   return (
     <>
       <div className="input-wrapper">
-        <label htmlFor={name} className="form-label">
+        <Label>
           {label}
-          {required && (
-            <sup className={styles["required-indicator"]}>*</sup>
-          )}
-        </label>
+          {required && <IsRequiredIndicator>*</IsRequiredIndicator>}
+        </Label>
         <InputWrapper>
-          <input
+          <Input
             type={type}
-            {...props}
             name={name}
+            {...props.inputProps}
             id={`${name}`}
             className="text-input text-input-valid"
             required={required}
-          ></input>
+            isInvalid={isInvalid ?? false}
+            disabled={disabled ?? false}
+          />
 
-          <IconWrapper onClick={onIconClick} hidden={!icon}>{icon}</IconWrapper>
+          {onIconClick && (
+            <IconWrapper onClick={onIconClick} hidden={!icon}>
+              {icon}
+            </IconWrapper>
+          )}
         </InputWrapper>
 
-        <span
-          id={`${name}-message`}
-          className="validation-feedback validation-feedback-hidden validation-feedback-valid"
-        >
-          {feedbackMessage}
-        </span>
+        <ValidationFeedback
+          isInvalid={isInvalid ?? false}
+          isVisible={isFeedbackVisible ?? false}
+        >{feedbackMessage}</ValidationFeedback>
       </div>
     </>
   );

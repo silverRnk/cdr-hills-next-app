@@ -5,8 +5,14 @@ import TextInput from "@/components/forms/TextInput";
 import InputRow from "@/components/forms/InputRow";
 import PasswordInput from "@/components/forms/PasswordInput";
 import RadioButtons from "@/components/forms/RadioButtons";
-import { formFieldsReducer, formFieldsInitValue } from "./utils";
+import {
+  formFieldsReducer,
+  formFieldsInitValue,
+  EnrollmentInputsLabel,
+} from "./utils";
 import { styled } from "styled-components";
+import { theme } from "../../../styles/styled-component/theme";
+import { FormInputReducer } from "@/components/forms/types";
 
 const FormSlideContainer = styled.div`
   display: flex;
@@ -38,8 +44,348 @@ const FormSlideItem = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: end;
-  grid-template-columns: repeat(2, 1fr);
 `;
+
+const Button = styled.button`
+  width: 100px;
+  height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  background-color: ${(props) =>
+    props.type === "submit"
+      ? theme.colors.secondary
+      : theme.colors.primary};
+  margin-right: 20px;
+
+  &:active {
+    filter: brightness(85%);
+  }
+`;
+
+const Slide1 = ({
+  getFormInput,
+  onInput,
+  onNext,
+}: {
+  getFormInput: (name: string) => FormInputReducer;
+  onInput: React.FormEventHandler<HTMLFormElement>;
+  onNext: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
+  return (
+    <div className={styles["form-container"]}>
+      <h2 className={styles["form-header"]}>Enrollment Form</h2>
+      <form onInput={onInput}>
+        <div className={styles["form-section"]}>
+          <span className={styles["form-section-header"]}>
+            Student Information
+          </span>
+          <InputRow columns={2}>
+            <TextInput
+              label={EnrollmentInputsLabel.first_name.label}
+              name={EnrollmentInputsLabel.first_name.name}
+              isInvalid={
+                getFormInput(EnrollmentInputsLabel.first_name.name)
+                  .isInvalid
+              }
+              feedbackMessage={
+                getFormInput(EnrollmentInputsLabel.first_name.name)
+                  .feedbackMessage
+              }
+              required={EnrollmentInputsLabel.first_name.required}
+            />
+            <TextInput
+              label={EnrollmentInputsLabel.last_name.label}
+              name={EnrollmentInputsLabel.last_name.name}
+              isInvalid={
+                getFormInput(EnrollmentInputsLabel.last_name.name)
+                  .isInvalid
+              }
+              feedbackMessage={
+                getFormInput(EnrollmentInputsLabel.last_name.name)
+                  .feedbackMessage
+              }
+              required={EnrollmentInputsLabel.last_name.required}
+            />
+          </InputRow>
+          <InputRow columns={2}>
+            <RadioButtons
+              label={EnrollmentInputsLabel.gender.label}
+              name={EnrollmentInputsLabel.gender.name}
+              required={EnrollmentInputsLabel.gender.required}
+              items={[
+                { id: "male", label: "Male", value: "male" },
+                {
+                  id: "female",
+                  label: "Female",
+                  value: "female",
+                },
+              ]}
+            />
+            <TextInput
+              label={EnrollmentInputsLabel.dob.label}
+              name={EnrollmentInputsLabel.dob.name}
+              isInvalid={
+                getFormInput(EnrollmentInputsLabel.dob.name).isInvalid
+              }
+              feedbackMessage={
+                getFormInput(EnrollmentInputsLabel.dob.name)
+                  .feedbackMessage
+              }
+              required={EnrollmentInputsLabel.dob.required}
+            />
+          </InputRow>
+          <InputRow>
+            <TextInput label="Address" name="address" />
+          </InputRow>
+          <InputRow columns={2}>
+            <RadioButtons
+              label={EnrollmentInputsLabel.enrollee_type.label}
+              name={EnrollmentInputsLabel.enrollee_type.name}
+              required={EnrollmentInputsLabel.enrollee_type.required}
+              items={[
+                { id: "old", label: "Old", value: "old" },
+                { id: "new", label: "New", value: "new" },
+                {
+                  id: "transferee",
+                  label: "transferee",
+                  value: "transferee",
+                },
+              ]}
+            />
+
+            <TextInput
+              label={EnrollmentInputsLabel.prev_school.label}
+              name={EnrollmentInputsLabel.prev_school.name}
+              isInvalid={
+                getFormInput(EnrollmentInputsLabel.prev_school.name)
+                  .isInvalid
+              }
+              feedbackMessage={
+                getFormInput(EnrollmentInputsLabel.prev_school.name)
+                  .feedbackMessage
+              }
+              required={
+                getFormInput(EnrollmentInputsLabel.enrollee_type.name)
+                  .value == "transferee" ||
+                getFormInput(EnrollmentInputsLabel.enrollee_type.name)
+                  .value == "old"
+              }
+              disabled={
+                getFormInput(EnrollmentInputsLabel.enrollee_type.name)
+                  .value == "new"
+              }
+            />
+          </InputRow>
+          <InputRow columns={2}>
+            <TextInput
+              label={EnrollmentInputsLabel.grade.label}
+              name={EnrollmentInputsLabel.grade.name}
+              isInvalid={
+                getFormInput(EnrollmentInputsLabel.grade.name)
+                  .isInvalid
+              }
+              feedbackMessage={
+                getFormInput(EnrollmentInputsLabel.grade.name)
+                  .feedbackMessage
+              }
+              required={
+                getFormInput(EnrollmentInputsLabel.enrollee_type.name)
+                  .value == "transferee" ||
+                getFormInput(EnrollmentInputsLabel.enrollee_type.name)
+                  .value == "old"
+              }
+              disabled={
+                getFormInput(EnrollmentInputsLabel.enrollee_type.name)
+                  .value == "new"
+              }
+            />
+            <TextInput
+              label={EnrollmentInputsLabel.email.label}
+              name={EnrollmentInputsLabel.email.name}
+              isInvalid={
+                getFormInput(EnrollmentInputsLabel.email.name)
+                  .isInvalid
+              }
+              feedbackMessage={
+                getFormInput(EnrollmentInputsLabel.email.name)
+                  .feedbackMessage
+              }
+              required={EnrollmentInputsLabel.email.required}
+            />
+          </InputRow>
+          <InputRow columns={2}>
+            <PasswordInput
+              label={EnrollmentInputsLabel.password.label}
+              name={EnrollmentInputsLabel.password.name}
+              feedbackMessage={
+                getFormInput(EnrollmentInputsLabel.password.name)
+                  .feedbackMessage
+              }
+              required={EnrollmentInputsLabel.password.required}
+            />
+            <PasswordInput
+              label={EnrollmentInputsLabel.pass_confirmation.label}
+              name={EnrollmentInputsLabel.pass_confirmation.name}
+              feedbackMessage={
+                getFormInput(
+                  EnrollmentInputsLabel.pass_confirmation.name
+                ).feedbackMessage
+              }
+              required={
+                EnrollmentInputsLabel.pass_confirmation.required
+              }
+            />
+          </InputRow>
+        </div>
+      </form>
+      <ButtonContainer>
+        <Button type="button" onClick={onNext}>
+          Next
+        </Button>
+      </ButtonContainer>
+    </div>
+  );
+};
+
+const Slide2 = ({
+  getFormInput,
+  onInput,
+  onPrev,
+  onNext,
+}: {
+  getFormInput: (name: string) => FormInputReducer;
+  onInput: React.FormEventHandler<HTMLFormElement>;
+  onPrev: React.FormEventHandler<HTMLButtonElement>;
+  onNext: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
+  return (
+    <div className={styles["form-container"]}>
+      <h2 className={styles["form-header"]}>Enrollment Form</h2>
+      <form onInput={onInput}>
+        <div className={styles["form-section"]}>
+          <span className={styles["form-section-header"]}>
+            Parent Information
+          </span>
+          <InputRow columns={2}>
+            <TextInput
+              label={EnrollmentInputsLabel.father_name.label}
+              name={EnrollmentInputsLabel.father_name.name}
+              isInvalid={
+                getFormInput(EnrollmentInputsLabel.first_name.name)
+                  .isInvalid
+              }
+              feedbackMessage={
+                getFormInput(EnrollmentInputsLabel.first_name.name)
+                  .feedbackMessage
+              }
+              required={EnrollmentInputsLabel.first_name.required}
+            />
+            <TextInput
+              label={EnrollmentInputsLabel.father_occupation.label}
+              name={EnrollmentInputsLabel.father_occupation.name}
+              isInvalid={
+                getFormInput(
+                  EnrollmentInputsLabel.father_occupation.name
+                ).isInvalid
+              }
+              feedbackMessage={
+                getFormInput(
+                  EnrollmentInputsLabel.father_occupation.name
+                ).feedbackMessage
+              }
+              required={
+                EnrollmentInputsLabel.father_occupation.required
+              }
+            />
+          </InputRow>
+          <InputRow columns={2}>
+            <TextInput
+              label={EnrollmentInputsLabel.mother_name.label}
+              name={EnrollmentInputsLabel.mother_name.name}
+              isInvalid={
+                getFormInput(EnrollmentInputsLabel.mother_name.name)
+                  .isInvalid
+              }
+              feedbackMessage={
+                getFormInput(EnrollmentInputsLabel.mother_name.name)
+                  .feedbackMessage
+              }
+              required={EnrollmentInputsLabel.mother_name.required}
+            />
+            <TextInput
+              label={EnrollmentInputsLabel.mother_occupation.label}
+              name={EnrollmentInputsLabel.mother_occupation.name}
+              isInvalid={
+                getFormInput(
+                  EnrollmentInputsLabel.mother_occupation.name
+                ).isInvalid
+              }
+              feedbackMessage={
+                getFormInput(
+                  EnrollmentInputsLabel.mother_occupation.name
+                ).feedbackMessage
+              }
+              required={
+                EnrollmentInputsLabel.mother_occupation.required
+              }
+            />
+          </InputRow>
+          <InputRow columns={2}>
+            <TextInput
+              label={EnrollmentInputsLabel.guardian_phone.label}
+              name={EnrollmentInputsLabel.guardian_phone.name}
+              isInvalid={
+                getFormInput(
+                  EnrollmentInputsLabel.guardian_phone.name
+                ).isInvalid
+              }
+              feedbackMessage={
+                getFormInput(
+                  EnrollmentInputsLabel.guardian_phone.name
+                ).feedbackMessage
+              }
+              required={EnrollmentInputsLabel.guardian_phone.required}
+            />
+            <TextInput
+              label={EnrollmentInputsLabel.guardian_email.label}
+              name={EnrollmentInputsLabel.guardian_email.name}
+              isInvalid={
+                getFormInput(
+                  EnrollmentInputsLabel.guardian_email.name
+                ).isInvalid
+              }
+              feedbackMessage={
+                getFormInput(
+                  EnrollmentInputsLabel.guardian_email.name
+                ).feedbackMessage
+              }
+              required={EnrollmentInputsLabel.guardian_email.required}
+            />
+          </InputRow>
+        </div>
+
+        <div className={styles["form-section"]}>
+          <span className={styles["form-section-header"]}>
+            Credentials
+          </span>
+        </div>
+      </form>
+      <ButtonContainer>
+        <Button type="button" onClick={onPrev}>
+          Previous
+        </Button>
+        <Button type="button" onClick={onNext}>
+          Next
+        </Button>
+      </ButtonContainer>
+    </div>
+  );
+};
 
 const Page = () => {
   const pageNumber: number = 2;
@@ -62,14 +408,14 @@ const Page = () => {
     // console.log(formInputs);
   };
 
-  const handleNexPage = (e:any) => {
+  const handleNexPage = (e: any) => {
     const pageTemp = currentPage + 1;
     e.preventDefault();
     setCurrentPage(pageTemp % pageNumber);
     console.log(currentPage);
   };
 
-  const handlePrevPage = (e:any) => {
+  const handlePrevPage = (e: any) => {
     e.preventDefault();
     if (currentPage > 0) {
       const pageTemp = currentPage - 1;
@@ -88,96 +434,19 @@ const Page = () => {
         currentPage={currentPage}
       >
         <FormSlideItem>
-          <div className={styles["form-container"]}>
-            <h2 className={styles["form-header"]}>Enrollment Form</h2>
-            <form onInput={handleFormInput}>
-              <div className={styles["form-section"]}>
-                <span className={styles["form-section-header"]}>
-                  Student Information
-                </span>
-                <InputRow columns={2}>
-                  <TextInput
-                    label="First Name"
-                    name="first_name"
-                    isInvalid
-                    feedbackMessage="Error"
-                    icon={"h"}
-                    required={true}
-                    defaultValue={getFormInput("first_name").value}
-                  />
-                  <TextInput
-                    type="text"
-                    label="Last Name"
-                    name="last_name"
-                    isFeedbackVisible
-                    feedbackMessage="message"
-                  />
-                </InputRow>
-                <InputRow columns={2}>
-                  <RadioButtons
-                    name="gender"
-                    label="Gender"
-                    items={[
-                      { id: "male", label: "Male", value: "male" },
-                      {
-                        id: "female",
-                        label: "Female",
-                        value: "female",
-                      },
-                    ]}
-                  />
-                  <TextInput
-                    type="date"
-                    label="Date of Birth"
-                    name="birth_date"
-                  />
-                </InputRow>
-                <InputRow>
-                  <TextInput label="Address" name="address" />
-                </InputRow>
-                <InputRow columns={2}>
-                  <RadioButtons
-                    label="Enrollee Type"
-                    name="enrollee_type"
-                    items={[
-                      { id: "old", label: "Old", value: "old" },
-                      { id: "new", label: "New", value: "new" },
-                      {
-                        id: "transferee",
-                        label: "transferee",
-                        value: "transferee",
-                      },
-                    ]}
-                  />
-
-                  <TextInput label="Previous School" />
-                </InputRow>
-                <InputRow columns={2}>
-                  <TextInput label="Grade" />
-                  <TextInput
-                    type="email"
-                    label="Email"
-                    name="email"
-                  />
-                </InputRow>
-                <InputRow columns={2}>
-                  <PasswordInput label="Password" name="password" />
-                  <PasswordInput
-                    label="Confirm Password"
-                    name="confirm_password"
-                  />
-                </InputRow>
-              </div>
-            </form>
-            <ButtonContainer>
-              <button onClick={handleNexPage}>Next</button>
-            </ButtonContainer>
-          </div>
+          <Slide1
+            getFormInput={getFormInput}
+            onInput={handleFormInput}
+            onNext={handleNexPage}
+          />
         </FormSlideItem>
         <FormSlideItem>
-          <div className={styles["form-container"]}>
-            <h2 className={styles["form-header"]}>Enrollment Form</h2>
-          </div>
+          <Slide2
+            getFormInput={getFormInput}
+            onInput={handleFormInput}
+            onNext={handleNexPage}
+            onPrev={handlePrevPage}
+          />
         </FormSlideItem>
       </FormSlideWrapper>
     </FormSlideContainer>

@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { theme } from "./theme";
 
 const InputWrapper = styled.div`
   position: relative;
@@ -61,25 +62,33 @@ const InputRow = styled.div<{ columnCount: number }>`
 `;
 
 const Label = styled.label`
-  ${(props) => props.theme.fontThemes.inputLabel}
+  ${theme.fontThemes.inputLabel}
 `;
-const Input = styled('input').withConfig({
+const Input = styled("input").withConfig({
   shouldForwardProp: (props) => {
-    return props !== 'isInvalid'
-  }
+    return props !== "isInvalid";
+  },
 })<{ isInvalid: boolean }>`
   font-size: 1rem;
   height: 35px;
   padding: 5px;
   border-radius: 2px;
   border: 1px solid
-    ${(props) => (props.isInvalid ? props.theme.colors.red : "grey")};
+    ${(props) => (props.isInvalid ? theme.colors.red : "grey")};
   box-shadow: 0 0 0 2px
     ${(props) =>
-      props.isInvalid ? props.theme.colors.red : "transparent"};
+      props.isInvalid ? theme.colors.red : "transparent"};
   transition: all 0.25s ease;
+
+  &:disabled{
+    filter: brightness(0.7);
+  }
 `;
-const ValidationFeedback = styled.small<{
+const ValidationFeedback = styled("small").withConfig({
+  shouldForwardProp: (props) => {
+    return props !== "isInvalid" && props !== "isVisible";
+  },
+})<{
   isInvalid: boolean;
   isVisible: boolean;
 }>`
@@ -91,7 +100,11 @@ const ValidationFeedback = styled.small<{
   color: ${(props) => (props.isInvalid ? "red" : "gray")};
 `;
 
-const Selection = styled.select<{ isInvalid: boolean }>`
+const Selection = styled("select").withConfig({
+  shouldForwardProp: (props) => {
+    return props !== "isInvalid";
+  },
+})<{ isInvalid: boolean }>`
   padding-left: 5px;
   font-size: 1rem;
   height: 35px;
@@ -119,7 +132,7 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   color: white;
-  background-color: ${(props) => props.theme.colors.secondary};
+  background-color: ${theme.colors.secondary};
   background-color: ${(props) =>
     props.type === "reset" && props.theme.colors.primary};
   margin-right: 20px;

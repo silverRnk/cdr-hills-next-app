@@ -3,7 +3,7 @@ import React from "react";
 import { styled } from "styled-components";
 import { theme } from "../../../styles/styled-component/theme";
 import {
-  InputContainer
+  InputContainer, IsRequiredIndicator
 } from "../../../styles/styled-component/form-components";
 
 const Container = styled.div`
@@ -55,14 +55,17 @@ const RadioButton = (props: RadioButtonItem) => {
 interface RadioButtonProps {
   label: string;
   name: string;
+  required:boolean;
   items: RadioItem[];
 }
 
 const RadioButtons = (props: RadioButtonProps) => {
-  const { name, items, label } = props;
+  const { name, items, label, required } = props;
   return (
     <InputContainer>
-      <Label>{label}</Label>
+      <Label>{label}
+      {required && <IsRequiredIndicator>*</IsRequiredIndicator>}
+      </Label>
       <Container>
         {items.map((radioItem) => (
           <RadioButton
