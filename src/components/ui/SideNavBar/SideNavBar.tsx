@@ -18,8 +18,27 @@ import TeacherIcon from "@/components/svg/TeacherIcon";
 import BookIcon from "@/components/svg/BookIcon";
 import AccountIcon from "@/components/svg/AccountIcon";
 
+
+
 //
 import './style.css'
+import styled from "styled-components";
+
+const SideBarHeader = styled.div`
+  display: flex;
+  height: 100px;
+  margin-bottom: 10px;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: yellow;
+`;
+
+const Logo = styled.img`
+  height: 50px;
+  width: 50px;
+  display: inline;
+`;
 
 const SideNavBar = () => {
 
@@ -27,6 +46,9 @@ const SideNavBar = () => {
 
   return (
     <Sidebar>
+      <SideBarHeader>
+        <Logo src="/cedarhills.png"/>
+      </SideBarHeader>
       <Menu
         menuItemStyles={{
           button: {
@@ -39,6 +61,7 @@ const SideNavBar = () => {
           },
         }}
       >
+        
         <MenuItem
             icon={<Dashboard/>}
             component={<Link href={"admin/dashboard"} />}

@@ -22,8 +22,7 @@ const Container = styled.div`
 const Left = styled.div`
   width: inherit;
   height: 100%;
-  overflow-y: scroll;
-  scrollbar-width: thin;
+
 `
 
 const Right = styled.div`

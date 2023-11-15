@@ -6,6 +6,7 @@
 .ps-sidebar-container{
     height: 100%;
     background-color: var(--app-blue-primary);
+    scrollbar-width: thin;
 }
 
 .ps-menuitem-root {
