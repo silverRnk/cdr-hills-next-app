@@ -93,9 +93,13 @@ const ValidationFeedback = styled("small").withConfig({
   isVisible: boolean;
 }>`
   min-height: 20px;
+  max-height: 20px;
   font-weight: 400;
   margin-top: 2px;
   margin-left: 5px;
+  line-height: 20px;
+  text-overflow: clip;
+  overflow: hidden;
   visibility: ${(props) => (props.isVisible ? "visible" : "hidden")};
   color: ${(props) => (props.isInvalid ? "red" : "gray")};
 `;

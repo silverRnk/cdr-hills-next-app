@@ -118,7 +118,7 @@ const TextInput = (props: ITextInput = initValue) => {
 
         <ValidationFeedback
           isInvalid={isInvalid ?? false}
-          isVisible={isFeedbackVisible ?? false}
+          isVisible={(isInvalid ?? false) || (isFeedbackVisible ?? false)}
         >{feedbackMessage}</ValidationFeedback>
       </div>
     </>

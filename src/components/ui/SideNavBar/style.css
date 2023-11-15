@@ -1,0 +1,21 @@
+.ps-sidebar-root{
+    height: 100%;
+
+}
+
+.ps-sidebar-container{
+    height: 100%;
+    background-color: var(--app-blue-primary);
+}
+
+.ps-menuitem-root {
+    color: white;
+}
+
+.ps-menuitem-root:hover{
+    color:black
+}
+
+.sub-menu-item{
+    color:black
+}

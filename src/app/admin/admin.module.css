@@ -1,17 +1,12 @@
 
 .admin-app{
     min-height: 100vh;
-}
-
-.container{
-    height: 100%;
-    display: grid;
-    grid-template-columns: 200px 1fr;
+    display: flex;
+    flex-direction: row;
 }
 
 .side-navbar{
     height: 100%;
-    background-color: blue;
 }
 
 .nav-bar-container{

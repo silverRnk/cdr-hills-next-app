@@ -1,30 +1,66 @@
 import { FormActions, FormInputReducer } from "@/components/forms/types";
 
-type EnrollmentInputs =
-  | "first_name"
-  | "last_name"
-  | "gender"
-  | "dob"
-  | "email"
-  | "phone"
-  | "grade"
-  | "password"
-  | "pass_confirmation"
-  | "enrollee_type"
-  | "father_name"
-  | "mother_name"
-  | "mother_occupation"
-  | "father_occupation"
-  | "guardian_email"
-  | "guardian_phone"
-  | "address"
-  | "place_of_birth"
-  | "prev_school";
+/**
+ * List of Input in the enrollment form
+ */
+export const inputList = [
+  "first_name",
+  "last_name",
+  "gender",
+  "dob",
+  "email",
+  "phone",
+  "grade",
+  "password",
+  "pass_confirmation",
+  "enrollee_type",
+  "father_name",
+  "mother_name",
+  "mother_occupation",
+  "father_occupation",
+  "guardian_email",
+  "guardian_phone",
+  "address",
+  "place_of_birth",
+  "prev_school",
+  "form_138",
+  "birth_cert",
+  "good_moral",
+  "form_137",
+] as const
+
+export type EnrollmentInputs = typeof inputList[number]
+
+// type EnrollmentInputs =
+//   | "first_name"
+//   | "last_name"
+//   | "gender"
+//   | "dob"
+//   | "email"
+//   | "phone"
+//   | "grade"
+//   | "password"
+//   | "pass_confirmation"
+//   | "enrollee_type"
+//   | "father_name"
+//   | "mother_name"
+//   | "mother_occupation"
+//   | "father_occupation"
+//   | "guardian_email"
+//   | "guardian_phone"
+//   | "address"
+//   | "place_of_birth"
+//   | "prev_school"
+//   | "form_138"
+//   | "birth_cert"
+//   | "good_moral"
+//   | "form_137";
 
 export interface EnrollmentInput {
   name: string;
   label: string;
-  required:boolean;
+  required?:boolean;
+  isFile?:boolean
 }
 
 export const EnrollmentInputsLabel: Record<
@@ -70,6 +106,10 @@ export const EnrollmentInputsLabel: Record<
   address: { label: "Address", name: "address", required:true },
   place_of_birth: { label: "Place of Birth", name: "place_of_birth", required:true },
   prev_school: { label: "Previous School", name: "prev_school", required: false },
+  birth_cert: {label: "Birth Cert", name: "birth_cert", isFile: true},
+  form_137: {label: "Form 137", name: "form_137", isFile: true},
+  form_138: {label: "Form 138", name: "form_138", isFile: true},
+  good_moral: {label: "Good Moral", name: "good_moral", isFile: true}
 };
 
 export const formFieldsInitValue: Array<FormInputReducer> = Object.keys(

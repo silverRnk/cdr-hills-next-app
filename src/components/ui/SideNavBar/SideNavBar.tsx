@@ -18,6 +18,8 @@ import TeacherIcon from "@/components/svg/TeacherIcon";
 import BookIcon from "@/components/svg/BookIcon";
 import AccountIcon from "@/components/svg/AccountIcon";
 
+//
+import './style.css'
 
 const SideNavBar = () => {
 

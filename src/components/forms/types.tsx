@@ -4,7 +4,7 @@
 export interface FormInputReducer {
     name: string;
     value: string | undefined;
-    file?: FileList | undefined;
+    file?: FileList| undefined;
     isInvalid: boolean;
     feedbackMessage: string | undefined;
   }

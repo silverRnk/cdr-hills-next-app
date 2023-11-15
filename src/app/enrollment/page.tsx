@@ -9,10 +9,15 @@ import {
   formFieldsReducer,
   formFieldsInitValue,
   EnrollmentInputsLabel,
+  inputList,
+  EnrollmentInputs
 } from "./utils";
 import { styled } from "styled-components";
 import { theme } from "../../../styles/styled-component/theme";
 import { FormInputReducer } from "@/components/forms/types";
+import InputFileCard from "@/components/forms/InputFileCard/InputFileCard";
+import axios from "axios";
+import axiosClient from "@/axios/AxiosClient";
 
 const FormSlideContainer = styled.div`
   display: flex;
@@ -116,7 +121,7 @@ const Slide1 = ({
             <RadioButtons
               label={EnrollmentInputsLabel.gender.label}
               name={EnrollmentInputsLabel.gender.name}
-              required={EnrollmentInputsLabel.gender.required}
+              required={EnrollmentInputsLabel.gender.required ?? false}
               items={[
                 { id: "male", label: "Male", value: "male" },
                 {
@@ -129,6 +134,7 @@ const Slide1 = ({
             <TextInput
               label={EnrollmentInputsLabel.dob.label}
               name={EnrollmentInputsLabel.dob.name}
+              type="date"
               isInvalid={
                 getFormInput(EnrollmentInputsLabel.dob.name).isInvalid
               }
@@ -256,12 +262,12 @@ const Slide2 = ({
   getFormInput,
   onInput,
   onPrev,
-  onNext,
+  onSubmit,
 }: {
   getFormInput: (name: string) => FormInputReducer;
   onInput: React.FormEventHandler<HTMLFormElement>;
   onPrev: React.FormEventHandler<HTMLButtonElement>;
-  onNext: React.MouseEventHandler<HTMLButtonElement>;
+  onSubmit: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
   return (
     <div className={styles["form-container"]}>
@@ -373,14 +379,45 @@ const Slide2 = ({
           <span className={styles["form-section-header"]}>
             Credentials
           </span>
+          <div className={styles["credentials-input-wrapper"]}>
+            <InputFileCard
+              name={EnrollmentInputsLabel.birth_cert.name}
+              label={EnrollmentInputsLabel.birth_cert.label}
+              required
+            />
+            <InputFileCard
+              name={EnrollmentInputsLabel.form_137.name}
+              label={EnrollmentInputsLabel.form_137.label}
+              required={
+                getFormInput(EnrollmentInputsLabel.enrollee_type.name)
+                  .value !== "new"
+              }
+            />
+            <InputFileCard
+              name={EnrollmentInputsLabel.form_138.name}
+              label={EnrollmentInputsLabel.form_138.label}
+              required={
+                getFormInput(EnrollmentInputsLabel.enrollee_type.name)
+                  .value === "transferee"
+              }
+            />
+            <InputFileCard
+              name={EnrollmentInputsLabel.good_moral.name}
+              label={EnrollmentInputsLabel.good_moral.label}
+              required={
+                getFormInput(EnrollmentInputsLabel.enrollee_type.name)
+                  .value === "transferee"
+              }
+            />
+          </div>
         </div>
       </form>
       <ButtonContainer>
         <Button type="button" onClick={onPrev}>
           Previous
         </Button>
-        <Button type="button" onClick={onNext}>
-          Next
+        <Button type="submit" onClick={onSubmit}>
+          Submit
         </Button>
       </ButtonContainer>
     </div>
@@ -423,6 +460,55 @@ const Page = () => {
     }
   };
 
+  const handleSubmit = (e:any) => {
+    e.preventDefault();
+    console.log(formInputs);
+    formInputsReducer({ type: "INVALID", name: "" });
+    const payload = new FormData();
+
+    inputList.forEach((key:EnrollmentInputs)=> {
+      const enrollmentLabel = EnrollmentInputsLabel[key]
+      if(!enrollmentLabel.isFile){
+        payload.append(enrollmentLabel.name, getFormInput(enrollmentLabel.name)?.value ?? "")
+      }else{
+        payload.append(enrollmentLabel.name, getFormInput(enrollmentLabel.name)?.file?.[0]!)
+      }
+    })
+
+    console.log(payload)
+
+
+    axiosClient
+      .post("/enroll", payload)
+      .then((data) => {
+        if (data && data.status === 201) {
+          
+        }
+      })
+      .catch((err) => {
+        const response = err.response;
+        console.log(err.response.data);
+        if (response && response.status === 422) {
+          const errors = response.data.errors;
+          const errorKey = Object.keys(errors);
+
+          //Notify user for invalid
+          // addDialogMessages({
+          //   message: `You have ${errorKey.length} input `,
+          //   messageType: "Error",
+          // });
+
+          errorKey.forEach((key) => {
+            formInputsReducer({
+              type: "INVALID",
+              name: key,
+              feedbackMessage: errors[key],
+            });
+          });
+        }
+      });
+  }
+
   const getFormInput = (name: string) => {
     return formInputs.filter((form) => form.name === name)[0];
   };
@@ -444,7 +530,7 @@ const Page = () => {
           <Slide2
             getFormInput={getFormInput}
             onInput={handleFormInput}
-            onNext={handleNexPage}
+            onSubmit={handleSubmit}
             onPrev={handlePrevPage}
           />
         </FormSlideItem>
