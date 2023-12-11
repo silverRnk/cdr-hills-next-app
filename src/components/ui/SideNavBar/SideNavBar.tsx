@@ -74,20 +74,20 @@ const SideNavBar = () => {
           >
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="/students/all" />}
+              component={<Link href="admin/students/list" />}
             >
               All Students
             </MenuItem>
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="/students/add_student" />}
+              component={<Link href="admin/students/add_student" />}
             >
               Add Student
             </MenuItem>
 
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="/students/student_admit_form" />}
+              component={<Link href="admin/students/student_admit_form" />}
             >
               Student Promotion
             </MenuItem>

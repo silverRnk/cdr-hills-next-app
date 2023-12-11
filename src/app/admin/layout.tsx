@@ -53,7 +53,7 @@ const AdminRootLayout = ({
             <Navbar/>
           </NavbarContainer>
           <ContentWrapper>
-            Content
+            {children}
           </ContentWrapper>
         </Right>
         {/* <div className={styles["nav-bar-container"]}>
