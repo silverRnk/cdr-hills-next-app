@@ -64,6 +64,7 @@ const StudentList = () => {
 
   }, [])
 
+
   return (
     <Container>
     <Wrapper>
@@ -71,8 +72,8 @@ const StudentList = () => {
         <StudentTable data={studentList} onSelectRow={() => {}} isLoading={studentList.length == 0}/>
         <PagerContainer>
         <Pagination
-          count={1}
-          page={1}
+          count={pageState.pageCount}
+          page={pageState.pageNumber}
           onChange={() => {}}
         />
         </PagerContainer>
