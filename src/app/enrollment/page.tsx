@@ -152,7 +152,7 @@ const Slide1 = ({
             <RadioButtons
               label={EnrollmentInputsLabel.enrollee_type.label}
               name={EnrollmentInputsLabel.enrollee_type.name}
-              required={EnrollmentInputsLabel.enrollee_type.required}
+              required={EnrollmentInputsLabel.enrollee_type.required!}
               items={[
                 { id: "old", label: "Old", value: "old" },
                 { id: "new", label: "New", value: "new" },
