@@ -10,6 +10,7 @@ import { setTimeout } from 'timers'
 import { studentListShort } from '../data'
 import { Pagination } from '@mui/material'
 import { pagerReducer, pagerState, searchSetting, searchSettingReducer } from './reducer'
+import { ButtonSearch, SearchContainer, SearchInput, SearchOption, SearchSelection } from '../../../../../styles/styled-component/search-input-components'
  
 const StudentTable = dynamic(() => import('@/components/ui/StudentTable/StudentTable'), { ssr: false })
 
@@ -49,6 +50,14 @@ const PagerContainer = styled.div`
   justify-content: flex-end;
 `;
 
+const InputName = styled(SearchInput)``;
+
+const Selection = styled(SearchSelection)``;
+
+const SelectionItem = styled(SearchOption)``;
+
+const Button = styled(ButtonSearch)``;
+
 
 
 const StudentList = () => {
@@ -69,6 +78,38 @@ const StudentList = () => {
     <Container>
     <Wrapper>
         <Title>All Students</Title>
+        <SearchContainer>
+        <InputName
+        //  ref={nameRef}
+        placeholder="Search by Name" />
+
+        <Selection
+          placeholder="Select Class"
+          // ref={gradeLevelRef}
+          // onInput={handleClassName}
+        >
+          <SelectionItem value={""}> Select Class </SelectionItem>
+          
+          {/* {gradeAndSection.map((item) => (
+            <SelectionItem value={item.grade_level_id}>
+              {item.grade_level}
+            </SelectionItem>
+          ))} */}
+        </Selection>
+        <Selection 
+        // ref={sectionRef}
+        >
+          <SelectionItem value={""}> Select Section </SelectionItem>
+          {/* {sectionList.map((section) => (
+            <SelectionItem value={section.id}>
+              {section.name}
+            </SelectionItem>
+          ))} */}
+        </Selection>
+        <ButtonSearch
+         onClick={() => {}}
+         >Search</ButtonSearch>
+      </SearchContainer>
         <StudentTable data={studentList} onSelectRow={() => {}} isLoading={studentList.length == 0}/>
         <PagerContainer>
         <Pagination

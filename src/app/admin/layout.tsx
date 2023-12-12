@@ -21,6 +21,7 @@ const Container = styled.div`
 
 const Left = styled.div`
   width: inherit;
+  background-color: ${props => props.theme.colors.primary};
   height: 100%;
 
 `

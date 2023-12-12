@@ -1,5 +1,5 @@
 import 'styled-components';
-import theme from "../styles/theme.tsx";
+import {theme} from "../styles/styled-component/theme";
 
 type StyledComponentTheme = typeof theme;
 

@@ -5,7 +5,7 @@
 
 .ps-sidebar-container{
     height: 100%;
-    background-color: var(--app-blue-primary);
+    background-color: #14238A !important;
     scrollbar-width: thin;
 }
 
