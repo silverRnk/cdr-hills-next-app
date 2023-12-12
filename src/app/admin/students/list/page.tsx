@@ -9,6 +9,7 @@ import { setInterval } from 'timers/promises'
 import { setTimeout } from 'timers'
 import { studentListShort } from '../data'
 import { Pagination } from '@mui/material'
+import { pagerReducer, pagerState, searchSetting, searchSettingReducer } from './reducer'
  
 const StudentTable = dynamic(() => import('@/components/ui/StudentTable/StudentTable'), { ssr: false })
 
@@ -48,55 +49,13 @@ const PagerContainer = styled.div`
   justify-content: flex-end;
 `;
 
-const pagerState = {
-  pageCount: 1,
-  pageNumber: 1,
-}
 
-type PagerState = typeof pagerState;
-
-function pageReducer(reducer: PagerState, action: {type: string, pageCount: number, pageNumber}): PagerState{
-  let newPage;
-
-  switch(action.type){
-    case "set_page_count":
-      return {
-        pageCount: action.pageCount,
-        pageNumber: reducer.pageNumber
-      }
-    case "go_to_page":
-      return {
-        pageCount: reducer.pageCount,
-        pageNumber: action.pageNumber
-      }
-    case "next_page":
-      if(reducer.pageNumber <= reducer.pageCount){
-        newPage = reducer.pageNumber + 1
-      }else{
-        newPage = reducer.pageNumber
-      }
-      return {
-        pageCount: reducer.pageCount,
-        pageNumber: newPage
-      }
-    case "prev_page":
-      if(reducer.pageNumber > 0){
-        newPage = reducer.pageNumber - 1
-      }else{
-        newPage = reducer.pageNumber
-      }
-      return {
-        pageCount: reducer.pageCount,
-        pageNumber: newPage
-      }
-    default:
-      throw("Action does not exist")
-  }
-}
 
 const StudentList = () => {
   const [studentList, setStudentList] = useState<StudentProfileShort[]>([])
-  const [pageState, setPageState] = useReducer(pageReducer, pagerState)
+  const [pageState, setPageState] = useReducer(pagerReducer, pagerState)
+  const [searchState, setSearchState] = useReducer(searchSettingReducer, searchSetting)
+
   useEffect(() => {
     let timer = setTimeout(() => {
       console.log('Hello timmer'),
