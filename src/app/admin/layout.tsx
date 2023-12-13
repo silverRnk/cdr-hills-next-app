@@ -6,6 +6,7 @@ import CustomSideBar from "@/components/ui/CustomSideBar";
 import { SideNavBar } from "@/components/ui";
 import Navbar from "@/components/ui/Navbar/Navbar";
 import styled from "styled-components";
+import { AdminContextProvider } from "./context";
 
 export const metadata: Metadata = {
   title: "Cedar Hills | Admin",
@@ -45,6 +46,7 @@ const AdminRootLayout = ({
   
   return (
     <>
+    <AdminContextProvider>
       <Container>
         <Left>
           <SideNavBar></SideNavBar>
@@ -67,6 +69,7 @@ const AdminRootLayout = ({
           <div>{children}</div>
         </div> */}
       </Container>
+    </AdminContextProvider>
     </>
   );
 };
