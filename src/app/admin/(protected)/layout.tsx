@@ -7,6 +7,8 @@ import Navbar from "@/components/ui/Navbar/Navbar";
 import styled from "styled-components";
 import { AdminContextProvider, useAdminContext } from "../context";
 import { redirect } from "next/navigation";
+import { cookies } from "next/dist/client/components/headers";
+// import { cookies } from 'next/headers'
 
 export const metadata: Metadata = {
   title: "Cedar Hills | Admin",
@@ -43,12 +45,17 @@ const AdminRootLayout = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false)
+
+  const handleOnToggle = () => {
+    setIsCollapsed(!isCollapsed);
+  }
 
   return (
     <>
       <Container>
         <Left>
-          <SideNavBar></SideNavBar>
+          <SideNavBar isCollapsed={isCollapsed} onCollapsed={handleOnToggle}></SideNavBar>
         </Left>
         <Right>
           <NavbarContainer>

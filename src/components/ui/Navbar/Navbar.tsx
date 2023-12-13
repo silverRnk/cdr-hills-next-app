@@ -17,12 +17,12 @@ const Container = styled.nav`
   align-items: center;
   min-width: 900px;
   width: 100%;
-  z-index: 10;
+  z-index: 1;
 `;
 
 const Left = styled.div`
   flex: 3;
-  background-color: yellow;
+  background-color: ${props => props.theme.colors.secondary};
 `;
 
 const SearchContainer = styled.div`

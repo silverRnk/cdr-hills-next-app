@@ -17,12 +17,10 @@ import ParentIcon from "@/components/svg/ParentIcon";
 import TeacherIcon from "@/components/svg/TeacherIcon";
 import BookIcon from "@/components/svg/BookIcon";
 import AccountIcon from "@/components/svg/AccountIcon";
-
-
-
-//
 import './style.css'
 import styled from "styled-components";
+import { Logo } from "./components";
+import { adminSideNavBarLinks } from "@/util/nav_links";
 
 const SideBarHeader = styled.div`
   display: flex;
@@ -31,23 +29,32 @@ const SideBarHeader = styled.div`
   padding: 20px;
   align-items: center;
   justify-content: space-between;
-  background-color: yellow;
+  background-color: ${props => props.theme.colors.secondary};
 `;
 
-const Logo = styled.img`
+const CollapseBtn = styled.button`
   height: 50px;
   width: 50px;
-  display: inline;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
 `;
 
-const SideNavBar = () => {
+const SideNavBar = (props:{isCollapsed:boolean, onCollapsed:() => void}) => {
 
   const handleLogout = () => {}
 
   return (
-    <Sidebar>
+    <Sidebar collapsed={props.isCollapsed}>
       <SideBarHeader>
-        <Logo src="/cedarhills.png"/>
+        <Logo src="/cedarhills.png" isCollapsed={props.isCollapsed} />
+        <CollapseBtn onClick={() => props.onCollapsed()}>
+            {props.isCollapsed ? (
+              <MenuIcon style={{ color: "white" }} />
+            ) : (
+              <MenuOpenIcon style={{ color: "white" }} />
+            )}
+          </CollapseBtn>
       </SideBarHeader>
       <Menu
         menuItemStyles={{
@@ -64,7 +71,7 @@ const SideNavBar = () => {
         
         <MenuItem
             icon={<Dashboard/>}
-            component={<Link href={"/admin/dashboard"} />}
+            component={<Link href={adminSideNavBarLinks.dashboard} />}
           >
             Dashboard
           </MenuItem>
@@ -74,13 +81,13 @@ const SideNavBar = () => {
           >
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="/admin/students/list" />}
+              component={<Link href={adminSideNavBarLinks.students.list} />}
             >
               All Students
             </MenuItem>
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="/admin/students/add_student" />}
+              component={<Link href={adminSideNavBarLinks.students.add_student} />}
             >
               Add Student
             </MenuItem>
