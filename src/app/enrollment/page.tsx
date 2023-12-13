@@ -13,7 +13,7 @@ import {
   EnrollmentInputs
 } from "./utils";
 import { styled } from "styled-components";
-import { theme } from "../../../styles/styled-component/theme";
+import { theme } from "../../styled-component/theme";
 import { FormInputReducer } from "@/components/forms/types";
 import InputFileCard from "@/components/forms/InputFileCard/InputFileCard";
 import axios from "axios";

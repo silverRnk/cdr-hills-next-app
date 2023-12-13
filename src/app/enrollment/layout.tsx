@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import { Metadata } from "next";
 import { Description } from "@mui/icons-material";
 import { relative } from "path";
-import StyledComponentsRegistry from "../../../styles/styled-component/registry";
+import StyledComponentsRegistry from "../../styled-component/registry";
 
 export const metadata: Metadata = {
   title: "Cedar Hills | Enrollment",

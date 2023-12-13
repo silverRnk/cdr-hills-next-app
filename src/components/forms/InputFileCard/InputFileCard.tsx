@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
-import { theme } from "../../../../styles/styled-component/theme";
-import { IsRequiredIndicator } from "../../../../styles/styled-component/form-components";
+import { theme } from "../../../styled-component/theme";
+import { IsRequiredIndicator } from "../../../styled-component/form-components";
 
 const CardContainer = styled.div`
   width: 150x;

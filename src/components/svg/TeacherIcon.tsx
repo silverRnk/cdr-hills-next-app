@@ -1,8 +1,9 @@
+import { SvgIcon, SvgIconProps } from "@mui/material";
 import React from "react";
 
-const TeacherIcon = (props: React.SVGAttributes<SVGElement>) => {
+const TeacherIcon = (props: SvgIconProps) => {
   return (
-    <svg {...props} viewBox="0 0 25.916 25.916">
+    <SvgIcon {...props} viewBox="0 0 25.916 25.916">
       <path
         d="M7.938,8.13c0.09,0.414,0.228,0.682,0.389,0.849c0.383,2.666,2.776,4.938,4.698,4.843
 			c2.445-0.12,4.178-2.755,4.567-4.843c0.161-0.166,0.316-0.521,0.409-0.938c0.104-0.479,0.216-1.201-0.072-1.583
@@ -22,7 +23,7 @@ const TeacherIcon = (props: React.SVGAttributes<SVGElement>) => {
 			l1.088,6.607c0.009,0.057,0.058,0.098,0.116,0.098c0.057,0,0.106-0.041,0.116-0.098l1.088-6.607l-1.058-1.02l1.161-1.776
 			C13.888,14.756,13.487,14.83,13.065,14.847z"
       />
-    </svg>
+    </SvgIcon>
   );
 };
 

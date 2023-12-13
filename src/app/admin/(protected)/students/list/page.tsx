@@ -10,7 +10,7 @@ import { setTimeout } from 'timers'
 import { studentListShort } from '../data'
 import { Pagination } from '@mui/material'
 import { pagerReducer, pagerState, searchSetting, searchSettingReducer } from './reducer'
-import { ButtonSearch, SearchContainer, SearchInput, SearchOption, SearchSelection } from '../../../../../styles/styled-component/search-input-components'
+import { ButtonSearch, SearchContainer, SearchInput, SearchOption, SearchSelection } from '../../../../../styled-component/search-input-components'
  
 const StudentTable = dynamic(() => import('@/components/ui/StudentTable/StudentTable'), { ssr: false })
 

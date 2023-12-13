@@ -64,30 +64,30 @@ const SideNavBar = () => {
         
         <MenuItem
             icon={<Dashboard/>}
-            component={<Link href={"admin/dashboard"} />}
+            component={<Link href={"/admin/dashboard"} />}
           >
             Dashboard
           </MenuItem>
           <SubMenu
             label="Students"
-            icon={<StudentIcon height={30} color="white" />}
+            icon={<StudentIcon height={30} />}
           >
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="admin/students/list" />}
+              component={<Link href="/admin/students/list" />}
             >
               All Students
             </MenuItem>
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="admin/students/add_student" />}
+              component={<Link href="/admin/students/add_student" />}
             >
               Add Student
             </MenuItem>
 
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="admin/students/student_admit_form" />}
+              component={<Link href="/admin/students/student_admit_form" />}
             >
               Student Promotion
             </MenuItem>

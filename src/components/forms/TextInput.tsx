@@ -8,7 +8,7 @@ import {
   IsRequiredIndicator,
   Label,
   ValidationFeedback,
-} from "../../../styles/styled-component/form-components";
+} from "../../styled-component/form-components";
 
 const InputWrapper = styled.div`
   position: relative;

@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { styled } from "styled-components";
-import { theme } from "../../../styles/styled-component/theme";
+import { theme } from "../../styled-component/theme";
 import {
   InputContainer, IsRequiredIndicator
-} from "../../../styles/styled-component/form-components";
+} from "../../styled-component/form-components";
 
 const Container = styled.div`
     display:flex;

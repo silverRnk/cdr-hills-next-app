@@ -1,12 +1,12 @@
 'use client'
 import { Metadata } from "next/types";
 import styles from "./admin.module.css";
-import React, { useState } from "react";
-import CustomSideBar from "@/components/ui/CustomSideBar";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { SideNavBar } from "@/components/ui";
 import Navbar from "@/components/ui/Navbar/Navbar";
 import styled from "styled-components";
-import { AdminContextProvider } from "./context";
+import { AdminContextProvider, useAdminContext } from "../context";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Cedar Hills | Admin",
@@ -43,12 +43,10 @@ const AdminRootLayout = ({
 }: {
   children: React.ReactNode;
 }) => {
-  
+
   return (
     <>
-        {children}
-    {/* <AdminContextProvider> */}
-      {/* <Container>
+      <Container>
         <Left>
           <SideNavBar></SideNavBar>
         </Left>
@@ -57,8 +55,9 @@ const AdminRootLayout = ({
             <Navbar/>
           </NavbarContainer>
           <ContentWrapper>
+            {children}
           </ContentWrapper>
-        </Right> */}
+        </Right>
         {/* <div className={styles["nav-bar-container"]}>
           <Navbar/>
         </div>
@@ -68,8 +67,7 @@ const AdminRootLayout = ({
           </div>
           <div>{children}</div>
         </div> */}
-      {/* </Container> */}
-    {/* </AdminContextProvider> */}
+      </Container>
     </>
   );
 };

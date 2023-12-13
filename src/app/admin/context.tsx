@@ -1,3 +1,4 @@
+'use client'
 import { createContext, useContext, useState } from "react"
 
 
@@ -14,14 +15,19 @@ function AdminContextProvider({
   }: {
     children: React.ReactNode;
   }) {
-    const [token, _setToken] = useState("");
-    const [isAuth, _setIsAuth] = useState(false)
+    const accessToken = localStorage.getItem("ACCESS_TOKEN") ?? ""
+    const [token, _setToken] = useState(accessToken);
+    const [isAuth, _setIsAuth] = useState(accessToken != "")
 
     const setToken = (token:string) => {
         _setToken(token);
-        if(token == ""){
-            _setIsAuth(!isAuth)
+        if (token) {
+          localStorage.setItem("ACCESS_TOKEN", token);
+        } else {
+          localStorage.removeItem("ACCESS_TOKEN");
         }
+        console.log(token)
+        console.log(isAuth)
     } 
 
     return <AdminContext.Provider value={{token, isAuth, setToken}}>

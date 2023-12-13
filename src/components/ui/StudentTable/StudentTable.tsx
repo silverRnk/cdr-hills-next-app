@@ -15,7 +15,7 @@ import {
   Pagination,
 } from "@mui/material";
 import { EmptyArrayGenerator } from "@/util/util_functions";
-import { PlaceHolder } from "../../../../styles/styled-component/place_holder";
+import { PlaceHolder } from "../../../styled-component/place_holder";
 
 
 const EmptyLabelContainer = styled("div").withConfig({
