@@ -5,11 +5,9 @@
     flex-direction: row;
 }
 
-.side-navbar{
-    height: 100%;
-}
-
-.nav-bar-container{
-    min-height: 50px;
-    background-color: red;
+.admin-container{
+    height: 100vh;
+    min-height: 100vh;
+    background-color: #FEFAE1;
+    overflow: hidden;
 }

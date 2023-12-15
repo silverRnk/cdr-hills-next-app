@@ -1,9 +1,17 @@
 'use client'
 import BookIcon from '@/components/svg/BookIcon'
-import ChartCard from '@/components/ui/ChartCard'
+import ParentIcon from '@/components/svg/ParentIcon'
+import StudentIcon from '@/components/svg/StudentIcon'
+import TeacherIcon from '@/components/svg/TeacherIcon'
+// import MyCalendarCard from '@/components/ui/Calendar/CalanderChard'
+import ChartCard, { IncomeAndExpensesChartCard } from '@/components/ui/Cards/ChartCard/ChartCard'
 import Chip from '@/components/ui/chip'
-import React from 'react'
+import { dashboardMockData, weeklyExpenses, weeklyIncome } from '@/util/data'
+import dynamic from 'next/dynamic'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
+
+const CalendarCard = dynamic(() => import('@/components/ui/Cards/Calendar/CalanderChard'))
 
 const Container = styled.div`
   height: 90vh;
@@ -46,41 +54,50 @@ const CalendarContainer = styled.div``;
 const ReminderContainer = styled.div``;
 
 const AdminDashboard = () => {
+
+  useEffect(() => {
+    console.log(weeklyExpenses)
+  })
+
   return (
     <Container>
       <Wrapper>
       <ChipsContainer>
         <Chip
-          icon={<BookIcon style={{ fontSize: "40px" }} />}
-          color={"green"}
+          icon={<StudentIcon style={{ fontSize: "40px", color: "#3CB878" }} />}
+          color={"#D1F3E0"}
           title={"Students"}
-          data={10000}
+          data={dashboardMockData.students}
         />
         <Chip
-          icon={<BookIcon style={{ fontSize: "40px" }} />}
-          color={"green"}
-          title={"Students"}
-          data={10000}
+          icon={<TeacherIcon style={{ fontSize: "40px", color: "#3F7AFC" }} />}
+          color={"#E1F1FF"}
+          title={"Teachers"}
+          data={dashboardMockData.teacher}
         />
         <Chip
-          icon={<BookIcon style={{ fontSize: "40px" }} />}
-          color={"green"}
-          title={"Students"}
-          data={10000}
+          icon={<ParentIcon style={{ fontSize: "40px", color: "#FFA002" }} />}
+          color={"#FFF2D8"}
+          title={"Parents"}
+          data={dashboardMockData.parents}
         />
         <Chip
-          icon={<BookIcon style={{ fontSize: "40px" }} />}
-          color={"green"}
-          title={"Students"}
-          data={10000}
+          icon={<BookIcon style={{ fontSize: "40px", color: "#FF0000" }} />}
+          color={"#FFEAEA"}
+          title={"Earning"}
+          data={dashboardMockData.earning}
         />
       </ChipsContainer>
       <Bottom>
         <ChartsContainer>
           <ChartCard title='my_title1'/>
           <ChartCard title='my_title2'/>
-          <ChartCard title='my_title3'/>
-          
+          <IncomeAndExpensesChartCard 
+            title='income & expenses' 
+            label={['1', '2', '3', '4', '5']} 
+            incomeData={weeklyIncome} 
+            expensesData={weeklyExpenses}/>
+          <CalendarCard/>
         </ChartsContainer>
         <MiscContainer>
 
