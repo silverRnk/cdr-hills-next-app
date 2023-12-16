@@ -1,12 +1,13 @@
+import { SvgIcon, SvgIconProps } from "@mui/material";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: 400px;
-  width: 400px;
+  height: 530px;
+  width: 530px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   background-color: white;
   padding: 30px;
   box-shadow: 5px 5px 5px gray;
@@ -18,14 +19,14 @@ const ContainerL = styled(Container)`
     width: 600px;
 `
 
-const ContainerSm= styled(Container)`
-    width: 300px;
+const ContainerSm = styled(Container)`
+    width: 255px;
 `
 
 const Title = styled.h3`
     font-size: 1.15rem;
     font-weight: 400;
-    margin: 0 auto 0 0;
+    margin: 0 auto 10px 0;
 `
 
 const OuterCircle = styled.div`
@@ -43,12 +44,33 @@ const InnerCircle = styled.div`
     margin: auto;
     border-radius: 100%;
 `
-const SmallCircle = (props: {color:string}) => {
+
+interface SvgPropsExtended extends SvgIconProps {
+    innerCircleColor: string
+}
+
+const SmallCircle = (props: SvgPropsExtended) => {
+    const {innerCircleColor} = props
+
     return(
-        <OuterCircle>
-            <InnerCircle style={{backgroundColor: props.color}}/>
-        </OuterCircle>
+        <SvgIcon width="15" height="15" viewBox="0 0 30 30" {...props as SvgIconProps}>
+            <g filter="url(#filter0_d_315_757)">
+            <circle cx="15" cy="11" r="5" fill={innerCircleColor}/>
+            <circle cx="15" cy="11" r="6" stroke="white" stroke-width="2"/>
+            </g>
+            {/* <defs>
+            <filter id="filter0_d_315_757" x="0" y="0" width="30" height="30" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset dy="4"/>
+            <feGaussianBlur stdDeviation="4"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_315_757"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_315_757" result="shape"/>
+            </filter>
+            </defs> */}
+        </SvgIcon>
     )
 }
 
-export {Container, Title, SmallCircle}
+export {Container, Title, SmallCircle, ContainerSm, ContainerL}

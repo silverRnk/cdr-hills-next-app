@@ -7,15 +7,17 @@ import {
   PointElement,
   LineElement,
   BarElement,
+  ArcElement,
+  BarOptions
   
 } from "chart.js";
-import { Bar, Chart, Line } from "react-chartjs-2";
+import { Bar, Chart, Doughnut, Line } from "react-chartjs-2";
 
 import React, { useLayoutEffect } from 'react'
 import styled from 'styled-components';
 import { ChartType as MyChartType } from "./ChardCard";
 import exp from "constants";
-import { Container, SmallCircle, Title } from "../styles";
+import { Container, ContainerSm, SmallCircle, Title } from "../styles";
 import { theme } from "@/styled-component/theme";
 
 // Register ChartJS components using ChartJS.register
@@ -25,14 +27,18 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  ArcElement,
   Tooltip
 );
 
+
 const LabelContainer = styled.div`
+  width: 100%;
   display: flex;
   gap: 20px;
-  align-content: center;
-  justify-content: center;
+  align-content: start;
+  justify-content: space-between;
+  margin-bottom: 20px;
 `
 
 const ColWrapper = styled.div`
@@ -53,7 +59,7 @@ const SubText = styled.small`
 
 const Text = styled.p`
   margin: 0 0 0 1.15rem;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 400;
 `
 
@@ -104,14 +110,24 @@ const EnrollmentChartCard = (props: {title: string, label: string[], data: numbe
   )
 }
 
-const LabelItem = () => {
+const LabelItem = (props: {
+  amount?:number, 
+  subText: string,
+  color?: string, 
+  }) => {
+    const {amount, subText, color} = props
+
+    const Decorator = color? <SmallCircle innerCircleColor={color}/>: <></>
+
+    const TextI = amount? <Text>$ {amount}</Text>:<></>
+
   return(
     <ColWrapper>
       <Row>
-        <SmallCircle color={theme.colors.primary}/>
-        <SubText>Total Collections</SubText>
+        {Decorator}
+        <SubText>{subText}</SubText>
       </Row>
-      <Text>$ 90000</Text>
+      {TextI}
     </ColWrapper>
   )
 }
@@ -124,12 +140,13 @@ export const IncomeAndExpensesChartCard = (props: {
     <Container>
       <Title>Earning & Expenses</Title>
       <LabelContainer>
-        <LabelItem/>
+        <LabelItem amount={90000} subText="Total Collection" color={theme.colors.primary} />
+        <LabelItem amount={90000} subText="Fees Collection" color={theme.colors.red} />
+        <LabelItem subText={"June 10, 2021"}/>
       </LabelContainer>
       <Line
         title={title + "_" + Date.now().toString()}
-        height={280}
-        width={280}
+        height={200}
         data={{
           labels: label,
           datasets: [
@@ -154,6 +171,69 @@ export const IncomeAndExpensesChartCard = (props: {
       />
     </Container>
   )
+}
+
+export const ExpensesChart = () => {
+
+  return (
+  <ContainerSm>
+    <Title>Expenses</Title>
+    <Bar
+      height={400}
+      width={200}
+      style={{height: "400px", width:"200px"}}
+      data={{
+        labels: ['Sep', 'Oct', 'Nov'],
+        datasets: [
+          {
+            label: "Expenses",
+            data: [5000, 3000, 4000],
+            backgroundColor: [
+              '#4FE397',
+              '#2139DE',
+              '#F22829'
+            ]
+          }
+        ]
+      } 
+      }
+      options={{
+    
+        scales:{
+          y:{
+            beginAtZero: true,
+            max: 10000,
+            ticks:{
+              count: 11,
+              precision: 0,
+              stepSize: 1000, 
+              maxTicksLimit: 10, 
+              callback(tickValue, index, ticks) {
+                let tickvalue = Math.floor(Number(tickValue) / 1000)
+                return tickValue == 0? 0: tickvalue + 'k'
+              },},},
+          // screenY:{max: 10000}
+        }
+
+      }
+      }
+    />
+  </ContainerSm>)
+}
+
+export const StudentSexRationChart = () => {
+  return (
+  <ContainerSm>
+    <Title>Students</Title>
+    <Doughnut
+      data={{
+        labels: ['Male, Female'],
+        datasets:[
+          {data: ['40000', '40100']}
+        ]
+      }}
+    ></Doughnut>
+  </ContainerSm>)
 }
 
 export default ChartCard

@@ -4,7 +4,8 @@ import ParentIcon from '@/components/svg/ParentIcon'
 import StudentIcon from '@/components/svg/StudentIcon'
 import TeacherIcon from '@/components/svg/TeacherIcon'
 // import MyCalendarCard from '@/components/ui/Calendar/CalanderChard'
-import ChartCard, { IncomeAndExpensesChartCard } from '@/components/ui/Cards/ChartCard/ChartCard'
+import ChartCard, { ExpensesChart, IncomeAndExpensesChartCard, StudentSexRationChart } from '@/components/ui/Cards/ChartCard/ChartCard'
+import ReminderCard from '@/components/ui/Cards/Reminder/ReminderCard'
 import Chip from '@/components/ui/chip'
 import { dashboardMockData, weeklyExpenses, weeklyIncome } from '@/util/data'
 import dynamic from 'next/dynamic'
@@ -22,7 +23,7 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div`
-  width: 1180px;
+  width: 1080px;
   margin: 0 auto;
 `
 
@@ -37,18 +38,19 @@ const ChipsContainer = styled.div`
 
 const Bottom = styled.div`
   display:flex;
+  flex-direction: column;
   align-items:center;
   gap: 20px;`
 
 const ChartsContainer = styled.div`
-  flex: 3;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
 `
 const MiscContainer = styled.div`
-  flex: 1;
+  display: flex;
+  gap: 20px;
 `
 const CalendarContainer = styled.div``;
 const ReminderContainer = styled.div``;
@@ -90,17 +92,17 @@ const AdminDashboard = () => {
       </ChipsContainer>
       <Bottom>
         <ChartsContainer>
-          <ChartCard title='my_title1'/>
-          <ChartCard title='my_title2'/>
           <IncomeAndExpensesChartCard 
             title='income & expenses' 
             label={['1', '2', '3', '4', '5']} 
             incomeData={weeklyIncome} 
             expensesData={weeklyExpenses}/>
-          <CalendarCard/>
+            <ExpensesChart/>
+            <StudentSexRationChart/>
         </ChartsContainer>
         <MiscContainer>
-
+          <CalendarCard/>
+          <ReminderCard/>
         </MiscContainer>
       </Bottom>
       </Wrapper>
