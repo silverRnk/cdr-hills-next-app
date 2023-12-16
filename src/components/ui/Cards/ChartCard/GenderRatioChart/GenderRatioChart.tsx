@@ -75,6 +75,7 @@ const HeaderWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: 10px;
 `
 
 const MenuButton = () => {

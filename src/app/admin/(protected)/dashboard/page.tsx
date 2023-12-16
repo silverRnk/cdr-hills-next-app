@@ -3,11 +3,8 @@ import BookIcon from '@/components/svg/BookIcon'
 import ParentIcon from '@/components/svg/ParentIcon'
 import StudentIcon from '@/components/svg/StudentIcon'
 import TeacherIcon from '@/components/svg/TeacherIcon'
-import { ExpensesChart, GenderRatioChart } from '@/components/ui/Cards/ChartCard'
+import { ExpensesChart, GenderRatioChart, IncomeAndExpensesChart } from '@/components/ui/Cards/ChartCard'
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-// import MyCalendarCard from '@/components/ui/Calendar/CalanderChard'
-import { IncomeAndExpensesChartCard } from '@/components/ui/Cards/ChartCard/ChartCard'
-
 import ReminderCard from '@/components/ui/Cards/Reminder/ReminderCard'
 import Chip from '@/components/ui/chip'
 import { dashboardMockData, weeklyExpenses, weeklyIncome } from '@/util/data'
@@ -95,7 +92,7 @@ const AdminDashboard = () => {
       </ChipsContainer>
       <Bottom>
         <ChartsContainer>
-          <IncomeAndExpensesChartCard 
+          <IncomeAndExpensesChart 
             title='income & expenses' 
             label={['1', '2', '3', '4', '5']} 
             incomeData={weeklyIncome} 

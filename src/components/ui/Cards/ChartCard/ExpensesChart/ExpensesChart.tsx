@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ContainerSm, Title } from "../../styles"
+import { ContainerSm, MenuButtonWrapper, Title, Button } from "../../styles"
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -14,9 +14,11 @@ import {
 
 import { Bar, Chart, Doughnut, Line } from "react-chartjs-2";
 
-import Button from '@mui/material/Button';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { useState } from "react";
+
 
 ChartJS.register(
     CategoryScale,
@@ -33,6 +35,7 @@ ChartJS.register(
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: 10px;
   `
 
   const LabelContainer = styled.div`
@@ -79,6 +82,35 @@ const colorList = [
     '#F22829'
 ]
 
+const MenuButton = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    };
+  const handleClose = () => {
+      setAnchorEl(null);
+  };
+
+  return (
+      <MenuButtonWrapper>
+          <Button onClick={(e) => handleClick(e)}>
+              <MoreVertIcon/>
+          </Button>
+          <Menu 
+          open={open} 
+          anchorEl={anchorEl} 
+          onClose={handleClose}
+          MenuListProps={{
+          'aria-labelledby': 'basic-button',
+          }}>
+              <MenuItem>Show more</MenuItem>
+              <MenuItem onClick={handleClose}>Close</MenuItem>
+          </Menu>
+      </MenuButtonWrapper>
+  )
+}
+
 const LabelItem = (props:{
     color: string,
     subTitle: string,
@@ -104,6 +136,7 @@ export const ExpensesChart = (props:{year:string | number, months:string[], data
     <ContainerSm>
       <HeaderWrapper>
         <Title>Expenses</Title>
+        <MenuButton/>
       </HeaderWrapper>
       <LabelContainer>
         <LabelItem color={colorList[0]} subTitle={months[0] +" "+ year} amount={5000}/>

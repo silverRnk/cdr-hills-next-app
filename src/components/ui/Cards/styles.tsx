@@ -27,7 +27,7 @@ const Title = styled.h3`
     font-size: 1.15rem;
     font-weight: 600;
     color: ${props => props.theme.colors.primary};
-    margin: 0 auto 10px 0;
+    margin: 0 auto 0 0;
 `
 
 const OuterCircle = styled.div`

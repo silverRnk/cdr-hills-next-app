@@ -7,16 +7,13 @@ import {
   PointElement,
   LineElement,
   BarElement,
-  ArcElement,
-  BarOptions
-  
+  ArcElement,  
 } from "chart.js";
-import { Bar, Chart, Doughnut, Line } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
-import React, { useLayoutEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components';
-import { ChartType as MyChartType } from "./ChardCard";
-import { Container, ContainerSm, SmallCircle, Title } from "../styles";
+import { Button, Container, MenuButtonWrapper, SmallCircle, Title } from "../../styles";
 import { theme } from "@/styled-component/theme";
 
 import styles from './styles.module.css'
@@ -30,6 +27,10 @@ ChartJS.register(
   ArcElement,
   Tooltip
 );
+
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 
 const LabelContainer = styled.div`
@@ -63,51 +64,41 @@ const Text = styled.p`
   font-weight: 400;
 `
 
-const ChartCard = (props: {title: string, type?:MyChartType}) => {
-  const {title} = props
-  const canvasId = title + '_' + Date.now().toString()
+const HeaderWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 10px;
+`
 
-  return (
-    <Container>
-      <Bar
-        height={280}
-        width={280}
-        data={{
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-          datasets: [
-            {
-              data: [100, 120, 115, 134, 168, 132, 200],
-              backgroundColor: "purple",
-            },
-          ],
-        }}
-      />
-    </Container>
-  )
-}
+const MenuButton = () => {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+      };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-
-const EnrollmentChartCard = (props: {title: string, label: string[], data: number[]}) => {
-  const {title, label, data} = props
-
-  return(
-    <Container>
-      <Line
-        title={title + "_" + Date.now().toString()}
-        height={280}
-        width={280}
-        data={{
-          labels: label,
-          datasets: [
-            {
-              data: data,
-              backgroundColor: "purple",
-            },
-          ],
-        }}
-      />
-    </Container>
-  )
+    return (
+        <MenuButtonWrapper>
+            <Button onClick={(e) => handleClick(e)}>
+                <MoreVertIcon/>
+            </Button>
+            <Menu 
+            open={open} 
+            anchorEl={anchorEl} 
+            onClose={handleClose}
+            MenuListProps={{
+            'aria-labelledby': 'basic-button',
+            }}>
+                <MenuItem>Show more</MenuItem>
+                <MenuItem onClick={handleClose}>Close</MenuItem>
+            </Menu>
+        </MenuButtonWrapper>
+    )
 }
 
 const LabelItem = (props: {
@@ -132,13 +123,16 @@ const LabelItem = (props: {
   )
 }
 
-export const IncomeAndExpensesChartCard = (props: {
+const IncomeAndExpensesChart= (props: {
   title: string, label: string[], incomeData: number[], expensesData:number[]}) => {
   const {title, label, incomeData, expensesData} = props
 
   return(
     <Container>
-      <Title>Earning & Expenses</Title>
+        <HeaderWrapper>
+            <Title>Earning & Expenses</Title>
+            <MenuButton/>
+        </HeaderWrapper>
       <LabelContainer>
         <LabelItem amount={90000} subText="Total Collection" color={theme.colors.primary} />
         <LabelItem amount={90000} subText="Fees Collection" color={theme.colors.red} />
@@ -179,4 +173,4 @@ export const IncomeAndExpensesChartCard = (props: {
   )
 }
 
-export default ChartCard
+export default IncomeAndExpensesChart
