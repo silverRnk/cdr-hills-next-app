@@ -20,6 +20,7 @@ import exp from "constants";
 import { Container, ContainerSm, SmallCircle, Title } from "../styles";
 import { theme } from "@/styled-component/theme";
 
+import styles from './styles.module.css'
 // Register ChartJS components using ChartJS.register
 ChartJS.register(
   CategoryScale,
@@ -117,7 +118,7 @@ const LabelItem = (props: {
   }) => {
     const {amount, subText, color} = props
 
-    const Decorator = color? <SmallCircle innerCircleColor={color}/>: <></>
+    const Decorator = color? <SmallCircle innerCircleColor={color} className={styles['circle-label']}/>: <></>
 
     const TextI = amount? <Text>$ {amount}</Text>:<></>
 
@@ -169,25 +170,14 @@ export const IncomeAndExpensesChartCard = (props: {
           ],
         }}
       />
+      <svg height="0" width="0">
+
+      <filter id='shadow' color-interpolation-filters="sRGB">
+        <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.5" />
+        </filter>
+      </svg>
     </Container>
   )
-}
-
-
-
-export const StudentSexRationChart = () => {
-  return (
-  <ContainerSm>
-    <Title>Students</Title>
-    <Doughnut
-      data={{
-        labels: ['Male, Female'],
-        datasets:[
-          {data: ['40000', '40100']}
-        ]
-      }}
-    ></Doughnut>
-  </ContainerSm>)
 }
 
 export default ChartCard

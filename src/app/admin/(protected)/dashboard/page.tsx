@@ -3,9 +3,10 @@ import BookIcon from '@/components/svg/BookIcon'
 import ParentIcon from '@/components/svg/ParentIcon'
 import StudentIcon from '@/components/svg/StudentIcon'
 import TeacherIcon from '@/components/svg/TeacherIcon'
-import { ExpensesChart } from '@/components/ui/Cards/ChartCard'
+import { ExpensesChart, GenderRatioChart } from '@/components/ui/Cards/ChartCard'
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 // import MyCalendarCard from '@/components/ui/Calendar/CalanderChard'
-import ChartCard, { IncomeAndExpensesChartCard, StudentSexRationChart } from '@/components/ui/Cards/ChartCard/ChartCard'
+import { IncomeAndExpensesChartCard } from '@/components/ui/Cards/ChartCard/ChartCard'
 
 import ReminderCard from '@/components/ui/Cards/Reminder/ReminderCard'
 import Chip from '@/components/ui/chip'
@@ -86,7 +87,7 @@ const AdminDashboard = () => {
           data={dashboardMockData.parents}
         />
         <Chip
-          icon={<BookIcon style={{ fontSize: "40px", color: "#FF0000" }} />}
+          icon={<AttachMoneyIcon style={{ fontSize: "40px", color: "#FF0000" }} />}
           color={"#FFEAEA"}
           title={"Earning"}
           data={dashboardMockData.earning}
@@ -99,8 +100,8 @@ const AdminDashboard = () => {
             label={['1', '2', '3', '4', '5']} 
             incomeData={weeklyIncome} 
             expensesData={weeklyExpenses}/>
-            <ExpensesChart/>
-            <StudentSexRationChart/>
+            <ExpensesChart year={2023} months={['Sept', 'Oct', 'Nov']} data={[5000, 3000, 4000]}/>
+            <GenderRatioChart/>
         </ChartsContainer>
         <MiscContainer>
           <CalendarCard/>

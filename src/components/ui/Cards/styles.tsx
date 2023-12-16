@@ -25,7 +25,8 @@ const ContainerSm = styled(Container)`
 
 const Title = styled.h3`
     font-size: 1.15rem;
-    font-weight: 400;
+    font-weight: 600;
+    color: ${props => props.theme.colors.primary};
     margin: 0 auto 10px 0;
 `
 
@@ -44,6 +45,28 @@ const InnerCircle = styled.div`
     margin: auto;
     border-radius: 100%;
 `
+
+const MenuButtonWrapper = styled.div`
+    position: relative;
+`
+
+const Button = styled.button`
+    all: unset;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    cursor: pointer;
+
+    :active{
+        border-radius: 100%;
+        background-color: lightgray;
+    }
+`
+
 
 interface SvgPropsExtended extends SvgIconProps {
     innerCircleColor: string
@@ -73,4 +96,4 @@ const SmallCircle = (props: SvgPropsExtended) => {
     )
 }
 
-export {Container, Title, SmallCircle, ContainerSm, ContainerL}
+export {Container, Title, SmallCircle, ContainerSm, ContainerL, MenuButtonWrapper, Button}
