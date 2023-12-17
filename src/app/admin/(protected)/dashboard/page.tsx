@@ -27,8 +27,6 @@ const Wrapper = styled.div`
   margin: 0 auto;
 `
 
-const PageTitle = styled.h1``
-
 const ChipsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -52,8 +50,6 @@ const MiscContainer = styled.div`
   display: flex;
   gap: 20px;
 `
-const CalendarContainer = styled.div``;
-const ReminderContainer = styled.div``;
 
 const AdminDashboard = () => {
 
@@ -92,12 +88,18 @@ const AdminDashboard = () => {
       </ChipsContainer>
       <Bottom>
         <ChartsContainer>
+
           <IncomeAndExpensesChart 
             title='income & expenses' 
             label={['1', '2', '3', '4', '5']} 
             incomeData={weeklyIncome} 
             expensesData={weeklyExpenses}/>
-            <ExpensesChart year={2023} months={['Sept', 'Oct', 'Nov']} data={[5000, 3000, 4000]}/>
+
+            <ExpensesChart 
+              year={2023} 
+              months={['Sept', 'Oct', 'Nov']} 
+              data={[5000, 3000, 4000]}/>
+
             <GenderRatioChart/>
         </ChartsContainer>
         <MiscContainer>

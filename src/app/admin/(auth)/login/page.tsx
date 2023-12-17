@@ -1,23 +1,29 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAdminContext } from '../../context'
 import { redirect } from 'next/navigation';
 
 const AdminLoginPage = () => {
-    // const {isAuth, setToken} = useAdminContext();
+    const [doWeGo, setDoWeGo] = useState(false)
 
     useEffect(() => {
-        
-    })
+        if(doWeGo){
+            redirect('/admin/dashboard')
+        }
+    }, [doWeGo])
 
-    const handleLogin = () => {
-        // setToken("123456");
-        // redirect("/admin/dashboard")
+    const handleLogin = async () => {
+       const resp = await fetch('/api/admin/login');
+       console.log('status' + resp.status)
+       if(resp.status == 200){
+            setDoWeGo(true);
+        }
     }
 
     return (
         <div>
             <button onClick={() => handleLogin()}>Login</button>
+
         </div>
   )
 }

@@ -21,6 +21,7 @@ import './style.css'
 import styled from "styled-components";
 import { Logo } from "./components";
 import { adminSideNavBarLinks } from "@/util/nav_links";
+import { redirect } from "next/navigation";
 
 const SideBarHeader = styled.div`
   display: flex;
@@ -41,8 +42,20 @@ const CollapseBtn = styled.button`
 `;
 
 const SideNavBar = (props:{isCollapsed:boolean, onCollapsed:() => void}) => {
+  const [doRedirect, setDoRedirect] = useState(false)
 
-  const handleLogout = () => {}
+  useEffect(() => {
+    if(doRedirect) redirect('/admin')
+    }, [doRedirect])
+
+  const handleLogout = async () => {
+    const resp = await fetch('/api/admin/logout');
+       console.log('status' + resp.status)
+       if(resp.status == 200){
+            setDoRedirect(true);
+        }
+    
+  }
 
   return (
     <Sidebar collapsed={props.isCollapsed}>
