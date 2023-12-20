@@ -1,18 +1,15 @@
-'use client'
-import React, { useEffect, useState, createRef } from 'react'
-import { useAdminContext } from '../../context'
-import { redirect } from 'next/navigation';
+import React from "react";
 import styled from "styled-components";
-import Image from 'next/image'
-import loginStyles from './login.module.css'
+import { createRef } from "react";
+import { useState } from "react";
 import { formFeedbackInitialState, useFormFeedback } from "./reducer";
 import {
     Container, 
-    // Body, 
+    Body, 
     Left, 
     About, 
     Header, 
-    // Logo, 
+    Logo, 
     LoginBox, 
     Right, 
     InputItem, 
@@ -23,61 +20,75 @@ import {
     Forgot, 
     Form} from './styled'
 
-const Logo = () => {
-  return <Image alt='logo' src='/cedarhills.png' className={loginStyles['logo']} width={100} height={100}/>
+
+
+const handleSubmit = () => {
+    // axiosClient
+    //   .post("/admin/login", payload)
+    //   .then(({ data }) => {
+    //     // setUser(data.user);
+    //     setToken(data.token);
+    //   })
+    //   .catch((err) => {
+    //     const response = err.response;
+    //     if (response && response.status === 422) {
+    //       setEmailFeedback(formFeedbackInitialState)
+    //       setPasswordFeedback(formFeedbackInitialState)
+    //       const error = response.data.errors
+    //       Object.keys(error).forEach(key => {
+            
+    //         switch(key){
+    //             case 'email':
+    //                 setEmailFeedback({isInvalid:true, isVisible:true, message: error[key]})
+    //                 break;
+    //             case 'password':
+    //                 setPasswordFeedback({isInvalid:true, isVisible:true, message: error[key]})
+    //                 break;
+    //             default:
+    //                 break;
+    //         }
+    //       })
+    //       console.log(response.data.errors);
+    //     }
+    //   });
 }
 
-
-function AdminLoginPage() {
+function Loginform() {
   const emailRef = createRef<HTMLInputElement>();
   const passwordRef = createRef<HTMLInputElement>();
   const [emailFeedback, setEmailFeedback] = useFormFeedback();
   const [passwordFeedback, setPasswordFeedback] = useFormFeedback();
-  const [doWeGo, setDoWeGo] = useState(false)
 
-    useEffect(() => {
-        if(doWeGo){
-            redirect('/admin/dashboard')
-        }
-    }, [doWeGo])
 
-    const handleLogin = async (e) => {
-      e.preventDefault();
-       const resp = await fetch('/api/admin/login');
-       console.log('status' + resp.status)
-       if(resp.status == 200){
-            setDoWeGo(true);
-        }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    if(emailRef!.current!.value === 'demo@login.com' && passwordRef!.current!.value === 'demopassword'){
+      return
     }
 
-  // const onSubmit = (event) => {
-  //   event.preventDefault();
-
-  //   if(emailRef!.current!.value === 'demo@login.com' && passwordRef!.current!.value === 'demopassword'){
-  //     return
-  //   }
-
-  //   const payload = {
-  //     email: emailRef!.current!.value,
-  //     password: passwordRef!.current!.value,
-  //   };
+    const payload = {
+      email: emailRef!.current!.value,
+      password: passwordRef!.current!.value,
+    };
     
-  // };
+  };
 
   return (
+    <Body>
       <Container>
         <Left>
           <div className="cover">
             <About>
-              <Logo/>
-              {/* <Logo src={"/cedarhills.png"} /> */}
+              <Logo src={"/cedarhills.png"} />
               <Header>CEDAR HILLS CHRISTIAN ACADEMY</Header>
             </About>
           </div>
         </Left>
         <Right>
           <LoginBox>
-            <Form onSubmit={handleLogin}>
+            <Form onSubmit={onSubmit}>
               <InputItem>
                 <Input
                   ref={emailRef}
@@ -107,12 +118,13 @@ function AdminLoginPage() {
               </InputItem>
 
               <Button>SIGN IN</Button>
-              <a href="#">Forget/Reset Password?</a> 
+              <a href="#">Forget/Reset Password?</a>
             </Form>
           </LoginBox>
         </Right>
       </Container>
+    </Body>
   );
 }
 
-export default AdminLoginPage;
+export default Loginform;

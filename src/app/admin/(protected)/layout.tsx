@@ -1,19 +1,12 @@
 'use client'
 import { Metadata } from "next/types";
-import styles from "./admin.module.css";
-import React, { useEffect, useLayoutEffect, useState } from "react";
 import { SideNavBar } from "@/components/ui";
 import Navbar from "@/components/ui/Navbar/Navbar";
 import styled from "styled-components";
-import { AdminContextProvider, useAdminContext } from "../context";
-import { redirect } from "next/navigation";
-import { cookies } from "next/dist/client/components/headers";
-// import { cookies } from 'next/headers'
+import dynamic from "next/dynamic";
+import { SideBarNoProps } from "@/components/ui";
 
-export const metadata: Metadata = {
-  title: "Cedar Hills | Admin",
-  description: "Cedar Hill Admin Page",
-};
+const SideNavNoProps = dynamic(() => import('@/components/ui/SideNavBar/NoProps'))
 
 const Container = styled.div`
     height: 100vh;
@@ -26,7 +19,6 @@ const Left = styled.div`
   width: inherit;
   background-color: ${props => props.theme.colors.primary};
   height: 100%;
-
 `
 
 const Right = styled.div`
@@ -45,17 +37,13 @@ const AdminRootLayout = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false)
-
-  const handleOnToggle = () => {
-    setIsCollapsed(!isCollapsed);
-  }
 
   return (
     <>
       <Container>
         <Left>
-          <SideNavBar isCollapsed={isCollapsed} onCollapsed={handleOnToggle}></SideNavBar>
+          {/* <SideNavBar isCollapsed={isCollapsed} onCollapsed={handleOnToggle}></SideNavBar> */}
+          <SideBarNoProps/>
         </Left>
         <Right>
           <NavbarContainer>
