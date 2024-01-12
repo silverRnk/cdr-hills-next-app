@@ -1,4 +1,4 @@
-import { StudentProfileShort } from "@/util/types";
+import { StudentProfileShort } from "@/util/interface";
 
 const studentListShort: StudentProfileShort[] = [
       {

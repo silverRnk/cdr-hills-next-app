@@ -4,7 +4,7 @@ import React, { useEffect, useReducer, useState } from 'react'
 import styled from 'styled-components'
 
 import dynamic from 'next/dynamic'
-import { StudentProfileShort } from '@/util/types'
+import { StudentProfileShort } from '@/util/interface'
 import { setInterval } from 'timers/promises'
 import { setTimeout } from 'timers'
 import { studentListShort } from '../data'

@@ -2,7 +2,7 @@
 
 import React, {memo} from "react";
 import styled from "styled-components";
-import { StudentProfileShort } from "../../../util/types";
+import { StudentProfileShort } from "../../../util/interface";
 import {
   TableContainer,
   Table,

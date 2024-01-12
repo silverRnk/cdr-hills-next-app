@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { ComponentProps, useEffect } from "react";
 import "./component.css";
 import styles from "./component.module.css";
 import { styled } from "styled-components";
@@ -64,7 +64,7 @@ export interface ITextInput {
   onIconClick?: (event: React.ChangeEvent<any>) => void;
   required?: boolean;
   inputProps?: Exclude<
-    React.FormHTMLAttributes<HTMLInputElement>,
+    ComponentProps<"input">,
     "type" | "required"
   >;
   disabled?:boolean
@@ -89,11 +89,10 @@ const TextInput = (props: ITextInput = initValue) => {
     disabled
   } = props;
 
-
   return (
     <>
       <div className="input-wrapper">
-        <Label>
+        <Label htmlFor={name}>
           {label}
           {required && <IsRequiredIndicator>*</IsRequiredIndicator>}
         </Label>
@@ -101,7 +100,7 @@ const TextInput = (props: ITextInput = initValue) => {
           <Input
             type={type}
             name={name}
-            {...props.inputProps}
+            {...props.inputProps as ComponentProps<"input">}
             id={`${name}`}
             className="text-input text-input-valid"
             required={required}
