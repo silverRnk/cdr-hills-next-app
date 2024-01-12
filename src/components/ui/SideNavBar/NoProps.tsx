@@ -126,13 +126,13 @@ const SideNavNoProps = () => {
            >
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="/teachers/all" />}
+              component={<Link href={adminSideNavBarLinks.teacher.list} />}
             >
               All Teachers
             </MenuItem>
             <MenuItem
               className="sub-menu-item"
-              component={<Link href="/teachers/add" />}
+              component={<Link href={adminSideNavBarLinks.teacher.add_teacher} />}
             >
               Add Teacher
             </MenuItem>
