@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 1080px;
-  height: 1000px;
+  min-height: 1000px;
   border-radius: 10px;
   box-shadow: 0 0 7px lightgray;
   background-color: white;
@@ -26,6 +26,43 @@ const Wrapper = styled.div`
   position: relative;
   box-shadow: 0px 0px 5px gray;
 `
+
+const StudentImage = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+`;
+const Image = styled.img`
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`;
+const Button = styled.button`
+  width: 100px;
+  height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: ${(props) => props.theme.colors.secondary};
+  background-color: ${(props) =>
+    props.type === "reset" && props.theme.colors.primary};
+  margin-right: 20px;
+
+  &:active {
+    filter: brightness(85%);
+  }
+`;
 
 type TextInputModProps = ComponentProps<typeof TextInput> & {fieldInfo?: FormInputLabel, formDatas?: FormInput[]}
 
@@ -83,11 +120,38 @@ const AddStudentPage = () => {
               </FormSection>
 
               <FormSection>
-                <SectionTitle>{"Parent's Information"}</SectionTitle>
+                <SectionTitle>{"Guardian's Information"}</SectionTitle>
                 <InputRow columns={2}>
-                  <TextInputMod fieldInfo={addStudentLabels.fth_name} formDatas={formData} required inputProps={{}}/>
+                  <TextInputMod fieldInfo={addStudentLabels.guardians_first_name}
+                   formDatas={formData} required/>
+                  <TextInputMod fieldInfo={addStudentLabels.guardians_last_name}
+                   formDatas={formData} required/>
+                </InputRow>
+                <InputRow columns={2}>
+                  <TextInputMod fieldInfo={addStudentLabels.guardians_occupation}
+                    formDatas={formData} />
+                  <TextInputMod fieldInfo={addStudentLabels.guardians_religion}
+                    formDatas={formData} />
+                </InputRow>
+                <InputRow columns={2}>
+                  <TextInputMod fieldInfo={addStudentLabels.guardians_phone}
+                    formDatas={formData} required/>
+                  <TextInputMod fieldInfo={addStudentLabels.guardians_email}
+                    formDatas={formData} required/>
                 </InputRow>
               </FormSection>
+
+              <FormSection>
+                <SectionTitle>Profile Picture</SectionTitle>
+                <StudentImage>
+                  <TextInputMod fieldInfo={addStudentLabels.std_photo} formDatas={formData} 
+                  type='file' inputProps={{accept:'image/*'}}/>
+                </StudentImage>
+              </FormSection>
+              <ButtonContainer>
+                <Button type='submit'>Add</Button>
+                <Button type='reset'>Reset</Button>
+              </ButtonContainer>
             </Form>
         </Wrapper>
     </Container>

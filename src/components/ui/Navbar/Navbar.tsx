@@ -7,6 +7,7 @@ import DefaultImg from "../../../../public/profile_default.svg";
 import { styled } from "styled-components";
 import Image from "next/image";
 import NavbarStyle from "./navbar.module.css";
+import ProfileOptions from "./ProfileOptions";
 
 const Container = styled.nav`
   padding: 15px 10px;
@@ -93,7 +94,7 @@ const Navbar = () => {
             alt="profile"
             className={NavbarStyle["profile-img"]}
           />
-          <ArrowDropDownOutlinedIcon />
+          <ProfileOptions/>
         </ProfileContainer>
       </Right>
     </Container>
