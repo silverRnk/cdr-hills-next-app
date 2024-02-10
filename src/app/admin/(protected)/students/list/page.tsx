@@ -11,6 +11,7 @@ import { studentListShort } from '../data'
 import { Pagination } from '@mui/material'
 import { pagerReducer, pagerState, searchSetting, searchSettingReducer } from './reducer'
 import { ButtonSearch, SearchContainer, SearchInput, SearchOption, SearchSelection } from '../../../../../styled-component/search-input-components'
+import { useRouter } from 'next/navigation'
  
 const StudentTable = dynamic(() => import('@/components/ui/StudentTable/StudentTable'), { ssr: false })
 
@@ -61,6 +62,7 @@ const Button = styled(ButtonSearch)``;
 
 
 const StudentList = () => {
+  const router = useRouter();
   const [studentList, setStudentList] = useState<StudentProfileShort[]>([])
   const [pageState, setPageState] = useReducer(pagerReducer, pagerState)
   const [searchState, setSearchState] = useReducer(searchSettingReducer, searchSetting)
@@ -73,6 +75,9 @@ const StudentList = () => {
 
   }, [])
 
+  const handleOnSelect = (_:any, student:StudentProfileShort) => {
+    router.push(`/admin/students/${student.std_id}`);
+  }
 
   return (
     <Container>
@@ -110,7 +115,7 @@ const StudentList = () => {
          onClick={() => {}}
          >Search</ButtonSearch>
       </SearchContainer>
-        <StudentTable data={studentList} onSelectRow={() => {}} isLoading={studentList.length == 0}/>
+        <StudentTable data={studentList} onSelectRow={handleOnSelect} isLoading={studentList.length == 0}/>
         <PagerContainer>
         <Pagination
           count={pageState.pageCount}

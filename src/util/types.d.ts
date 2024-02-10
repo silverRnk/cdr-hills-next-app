@@ -4,3 +4,5 @@
  * RESET_INVALID reset isInvalid and feedbackMessage to init state
  */
 export type FormActions = "INPUT" | "INVALID" | "RESET_INVALID";
+
+export type textAlignments = "left" | "right" | "center" | "justify";

@@ -47,3 +47,54 @@ export interface FormInput {
     status: StudentStatus;
     profile_img: string
   }
+
+  export interface TeacherProfileShort {
+    teacher_id: string,
+    teacher_name: string,
+    teacher_gender: Gender,
+    teacher_advisory_class: string,
+    teacher_address: string,
+    teacher_dob: string,
+    teacher_phone: string
+  } 
+
+  export export interface TeacherProfileLong {
+    teacher_id: string,
+    teacher_name: string
+    teacher_gender: Gender,
+    teacher_date_of_birth: string | Date,
+    teacher_address: string,
+    teacher_religion: string,
+    teacher_email: string,
+    teacher_phone: string,
+    teacher_advisory_class: string,
+    teacher_admission_date: string
+    teacher_profile_img: string
+  }
+
+
+  export interface GradeLevels {
+    grade_level_id: string;
+    level: number;
+    grade_level: string;
+    sections: Section[];
+  }
+  
+  export interface Section {
+    id: number;
+    section_name: string;
+  }
+
+
+
+
+
+  // Tables
+
+  export interface ColumnHeader {
+    id: string;
+    label: string;
+    minWidth: number;
+    align?: string | null;
+    format?: () => any | null;
+  }

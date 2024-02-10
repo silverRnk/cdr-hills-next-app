@@ -1,193 +1,99 @@
 'use client'
+import { PlaceHolder } from '@/styled-component/place_holder';
+import { StudentProfileLong } from '@/util/interface';
 import React, { useState } from 'react'
-import styled from 'styled-components'
-// import SchoolLogo from './cedarhills.png'
-import Image from 'next/image'
-import ProfileImage from './components/ProfileImage'
-import StudentName from './components/StudentName'
-// import Option, {Option as BaseOption, optionClasses } from '@mui/base/Option';
-//Mui Tabs
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import StudentDetails from './components/StudentDetails'
-import { Menu } from 'react-pro-sidebar'
-import UpdateGradeLevelAndSection from './components/UpdateGradeAndSection'
-import UpdateStatusForm from './components/UpdateStatus'
+import styled from 'styled-components';
 
-const Container = styled.div`
-  height: 90vh;
-  overflow-y: scroll;
-`
 
-const Wrapper = styled.div`
-  width: 1080px;
-  min-height: 1000px;
-  border-radius: 10px;
-  box-shadow: 0 0 7px lightgray;
-  background-color: white;
-  margin: 100px auto;
-  padding: 40px;
+const Table = styled.div`
+  width: 100%;
+  margin-top: 5px;
+  margin-left: 10px;
+`;
+const TableBody = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  position: relative;
-  box-shadow: 0px 0px 5px gray;
-`
-
-const Top = styled.div`
-  height: 75px;
+  gap: 10px;
+`;
+const Row = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: start;
+  justify-content: space-evenly;
 `;
-
-const Bottom = styled.div`
-  width: 100%;
-  margin-top: 10px;
-  display: flex;
-
+const RowHeader = styled.span`
+  flex: 1;
+  font-size: 1.25rem;
+  padding-left: 10px;
+  font-weight: bold;
 `;
-
-const Left = styled.div`
+const Cell = styled.span`
   flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-`
-
-const Status = styled.span`
-  ${(props) => props.theme.fontThemes.h4}
-  margin-bottom: 40px;
-  text-transform: capitalize;
+  justify-content: start;
+  padding-left: 10px;
 `;
 
-const Right = styled.div`
-  flex:3;
-  margin: 5px 20px;
-`
+type Keys = keyof StudentProfileLong;
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-const TabMenus = () => {
-
-  const [selectedTab, setSelectedTab] = useState<number>(0);
-
-  const handleSelectTab = (item:number) => {
-    setSelectedTab(item);
+interface ColumnHeaderShort {
+    id: string;
+    label: string;
   }
 
+export const studentDetailsHeader: Array<ColumnHeaderShort> = [
+  { id: "id_number", label: "Student Number" },
+  { id: "name", label: "Name" },
+  { id: "gender", label: "Gender" },
+  { id: "religion", label: "Religion" },
+  { id: "date_of_birth", label: "Date of Birth" },
+  { id: "e_mail", label: "Email" },
+  { id: "father_name", label: "Father's Name" },
+  { id: "mother_name", label: "Mother's Name" },
+  { id: "father_occupation", label: "Father's Occupation" },
+  { id: "admission_date", label: "Admission Date" },
+  { id: "class", label: "Grade" },
+  { id: "section", label: "Section" },
+];
+
+interface RowHeaderShort {
+    id: string;
+    label: string;
+  }
+
+export const credentialsRowHeader: Array<RowHeaderShort> = [
+  {id: "birth_cert", label: "Birth Certificate"},
+  {id: "form_137", label: "Form 137"},
+  {id: "good_moral", label: "Good Moral"},
+  {id: "form_138", label: "Form 138"},
+  {id: "report_card", label: "Report Card"}
+]
+
+const StudentDetails = () => {
+
+  const [data, setData] = useState<StudentProfileLong|null>(null)
+  const [isLoading, setLoading] = useState(true)
+
   return (
-    <>
-      <Box sx={{ width: "100%", typography: "body1" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs
-                value={selectedTab}
-                onChange={(_, value) => handleSelectTab(value)}
-                >
-                  <Tab label="Profile" value={0} />
-                  <Tab label="Credentials" value={1} />
-                  <Tab label="Grades" value={2} />
-                </Tabs>
-              </Box>
-
-              <CustomTabPanel value={selectedTab} index={0}>
-                <StudentDetails isLoading/>
-              </CustomTabPanel>
-
-              <CustomTabPanel value={selectedTab} index={1}>
-                Item 1
-              </CustomTabPanel>
-
-              <CustomTabPanel value={selectedTab} index={2}>
-                Item 2
-              </CustomTabPanel>
-
-              {/* <CustomPa value="1">
-                {/* <InfoContainer>
-                  <StudentDetails
-                    data={studentProfile}
-                    isLoading={isLoading}
-                  />
-                </InfoContainer> */}
-              
-
-              {
-                //Tab2
-              }
-              {/* //<TabPanel value="2"> */}
-                {/* <StudentsCredentials id={studentProfile?.id_number} /> */}
-
-              
-              {/* <TabPanel value="3">
-                {/* <GradesTableWrapper>
-                  <GradeTableHeader>
-                    <GradeTableTitle>Grades</GradeTableTitle>
-                    <GradeSYSelection>
-                      <GradesSYOption value={""}>
-                        {" "}
-                        -- Select --
-                      </GradesSYOption>
-                    </GradeSYSelection>
-                  </GradeTableHeader>
-                  <GradesTable
-                    grades={gradesPerSY?.grades ?? []}
-                    isEmpty={!gradesPerSY}
-                  />
-                </GradesTableWrapper> */} 
-      </Box>
-    </>
+    <Table role="table">
+      <TableBody role="rowgroup">
+        {studentDetailsHeader.map((row) => (
+          <Row role="row" key={row.id}>
+            <RowHeader role="rowheader">{row.label}:</RowHeader>
+            {isLoading ? (
+              <Cell>
+                <PlaceHolder style={{height: "20px"}} />
+              </Cell>
+            ) : (
+              <Cell>{!data ? "N/A" : data[row.id]}</Cell>
+            )}
+          </Row>
+        ))}
+      </TableBody>
+    </Table>
   )
 }
 
-const StudentProfilePage = () => {
-  return (
-    <Container>
-      <Wrapper>
-        <Top><Image src={'/cedarhills.png'} width={75} height={75} alt="School Logo" /></Top>
-        <Bottom>
-          <Left>
-            <ProfileImage src=''/>
-            <Status>Current Status: {"Newbie"}</Status>
-            <UpdateStatusForm/>
-            <UpdateGradeLevelAndSection/>
-          </Left>
-          <Right>
-            <StudentName>Patrick Bautista</StudentName>
-            <TabMenus/>
-          </Right>
-        </Bottom>
-      </Wrapper>
-    </Container>
-  )
-}
-
-export default StudentProfilePage
+export default StudentDetails
