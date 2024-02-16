@@ -43,7 +43,7 @@ interface ColumnHeaderShort {
     label: string;
   }
 
-export const studentDetailsHeader: Array<ColumnHeaderShort> = [
+const studentDetailsHeader: Array<ColumnHeaderShort> = [
   { id: "id_number", label: "Student Number" },
   { id: "name", label: "Name" },
   { id: "gender", label: "Gender" },
