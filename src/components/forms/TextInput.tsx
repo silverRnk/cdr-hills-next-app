@@ -100,7 +100,7 @@ const TextInput = (props: ITextInput = initValue) => {
           <Input
             type={type}
             name={name}
-            {...props.inputProps as ComponentProps<"input">}
+            // {...props.inputProps as ComponentProps<"input">}
             id={`${name}`}
             className="text-input text-input-valid"
             required={required}
