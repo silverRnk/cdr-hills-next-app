@@ -16,6 +16,7 @@ import { StudentProfileLong } from "@/util/interface";
 import { theme } from "@/styled-component/theme";
 import { PlaceHolder } from "@/styled-component/place_holder";
 import { textAlignments } from "@/util/types";
+import { CredentialsInfo, RowHeaderShort } from "./types";
 
 const CredentialsContainer = styled.div`
   width: 100%;
@@ -32,26 +33,6 @@ const Title = styled.h4`
 
 const Form = styled.form`
 `;
-
-interface CredentialsInfo {
-    id: string;
-    fileName: string;
-    uploadedDate: string;
-    downloadLink: string;
-}
-
-type CredentialsRowHeader =
-  | "birth_cert"
-  | "form_137"
-  | "good_moral"
-  | "form_138"
-  | "report_card";
-
-
-interface RowHeaderShort {
-    id: string;
-    label: string;
-}
 
 const credentialsRowHeader: Array<RowHeaderShort> = [
     {id: "birth_cert", label: "Birth Certificate"},
