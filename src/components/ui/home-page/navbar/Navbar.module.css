@@ -25,13 +25,23 @@
         flex: 1;
         display: flex;
         gap: 30px;
-        font-size: 2rem;
+        font-size: 1.75rem;
         color: #151F69;
         font-weight: 600;
         list-style-type: none;
     }
 
-    .login-wrapper{
+    .right{
         margin-left: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px
+    }
+
+    .login-link{
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #151F69;
     }
 }

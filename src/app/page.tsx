@@ -2,7 +2,8 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { Navbar } from '@/components/ui/home-page'
+import { Collage, Navbar } from '@/components/ui/home-page'
+import { calligraffitti } from './font'
 
 const meta: Metadata = {
   title: "Cedar Hills Christian Academy",
@@ -14,8 +15,8 @@ export default function Home() {
     <>
     <div className={styles.container}>
       <Navbar/>
-    <main className={styles.main}>
-        Hello World
+      <main className={`${styles.main} ${calligraffitti.variable}`}>
+        <Collage/>
       </main>
     </div>
       

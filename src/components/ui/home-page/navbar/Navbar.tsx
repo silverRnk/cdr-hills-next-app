@@ -2,6 +2,7 @@ import React from 'react'
 import Navbarstyle from './Navbar.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { EnrollmentButton } from '../enrollBtn/EnrollmentButton'
 
 const Navbar = () => {
   return (
@@ -15,10 +16,11 @@ const Navbar = () => {
           <li><Link href={'/'}>Home</Link></li>
           <li>Admission</li>
           <li>About Us</li>
-          <li className={Navbarstyle['login-wrapper']}>
-            <Link href={'/admin'}>Login</Link>
-          </li>
         </ul>
+        <div className={Navbarstyle.right}>
+          <EnrollmentButton/>
+          <Link href={'/admin'} className={Navbarstyle['login-link']}>Login</Link>
+        </div>
       </nav>
     </header>
   )
