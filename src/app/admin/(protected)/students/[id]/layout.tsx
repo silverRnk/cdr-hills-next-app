@@ -115,7 +115,7 @@ const TabMenus = ({children}:{children:React.ReactNode}) => {
     }else{
       setSelectedTab(0);
     }
-  }, [url])
+  }, [slug])
   
   
   const handleSelectTab = (item:number) => {

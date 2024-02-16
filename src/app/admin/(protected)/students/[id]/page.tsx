@@ -63,14 +63,6 @@ interface RowHeaderShort {
     label: string;
   }
 
-export const credentialsRowHeader: Array<RowHeaderShort> = [
-  {id: "birth_cert", label: "Birth Certificate"},
-  {id: "form_137", label: "Form 137"},
-  {id: "good_moral", label: "Good Moral"},
-  {id: "form_138", label: "Form 138"},
-  {id: "report_card", label: "Report Card"}
-]
-
 const StudentDetails = () => {
 
   const [data, setData] = useState<StudentProfileLong|null>(null)
