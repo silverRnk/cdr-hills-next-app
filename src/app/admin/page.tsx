@@ -1,5 +1,4 @@
 'use client'
-import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import React, { useEffect } from 'react'
 // import { useAdminContext } from './context'

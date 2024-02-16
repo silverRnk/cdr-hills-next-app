@@ -1,5 +1,4 @@
 'use client'
-import BookIcon from '@/components/svg/BookIcon'
 import ParentIcon from '@/components/svg/ParentIcon'
 import StudentIcon from '@/components/svg/StudentIcon'
 import TeacherIcon from '@/components/svg/TeacherIcon'

@@ -1,6 +1,4 @@
 'use client'
-import { Metadata } from "next/types";
-import { SideNavBar } from "@/components/ui";
 import Navbar from "@/components/ui/Navbar/Navbar";
 import styled from "styled-components";
 import dynamic from "next/dynamic";

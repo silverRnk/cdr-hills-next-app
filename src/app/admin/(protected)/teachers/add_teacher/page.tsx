@@ -1,21 +1,16 @@
 'use client'
-'use client'
 import React, {
     createRef,
-    useEffect,
-    useReducer,
     useState,
 } from "react";
 import styled from "styled-components";
-import DefaultImg from "../../../assets/profile_default.svg";
 
-import { Label, Input, Selection, Option } from "@/styled-component/form-components";
+import { Label, Input} from "@/styled-component/form-components";
 import { PageContainer } from "@/styled-component/Containers"
 
 import { Path, UseControllerProps, UseFormRegister, useController, useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { teacherSchema } from "./schema";
-import { FormControl, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { AddTeacherInput } from "./type";
 import SelectionOptions from "./components/Selection";
 

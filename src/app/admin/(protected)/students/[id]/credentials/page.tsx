@@ -5,14 +5,11 @@ import styled from "styled-components";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import { Button, FormLabel } from "@mui/material";
-import { StudentProfileLong } from "@/util/interface";
+import { Button} from "@mui/material";
 import { theme } from "@/styled-component/theme";
 import { PlaceHolder } from "@/styled-component/place_holder";
 import { textAlignments } from "@/util/types";

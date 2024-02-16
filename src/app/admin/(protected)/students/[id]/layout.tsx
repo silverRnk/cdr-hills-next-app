@@ -11,8 +11,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import StudentDetails from './components/StudentDetails'
-import { Menu } from 'react-pro-sidebar'
 import UpdateGradeLevelAndSection from './components/UpdateGradeAndSection'
 import UpdateStatusForm from './components/UpdateStatus'
 import { useParams, usePathname, useRouter } from 'next/navigation'
