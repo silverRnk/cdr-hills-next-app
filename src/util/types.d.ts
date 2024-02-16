@@ -6,3 +6,5 @@
 export type FormActions = "INPUT" | "INVALID" | "RESET_INVALID";
 
 export type textAlignments = "left" | "right" | "center" | "justify";
+
+export type Gender = "Male" | "Female" | "Other"

@@ -1,26 +1,20 @@
 'use client'
-'use client'
 import React, {
     createRef,
-    useEffect,
     useReducer,
     useState,
-} from "react";
-import styled from "styled-components";
-import DefaultImg from "../../../assets/profile_default.svg";
+  } from "react";
+  import styled from "styled-components";
+  import DefaultImg from "../../../assets/profile_default.svg";
+  // import axiosClient from "../../../utils/AxiosClient";
 
-import { Label, Input, Selection, Option } from "@/styled-component/form-components";
-import { PageContainer } from "@/styled-component/Containers"
+  import { Label, Input, Selection, Option } from "../../../compenents/forms/Forms";
+  import { PageContainer } from "../../../compenents/style-components/PageStyleComponents";
+//   imort {}
 
-import { Path, UseControllerProps, UseFormRegister, useController, useForm } from "react-hook-form";
-import { zodResolver } from '@hookform/resolvers/zod';
-import { teacherSchema } from "./schema";
-import { FormControl, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { AddTeacherInput } from "./type";
-import SelectionOptions from "./components/Selection";
+  import { Path, UseControllerProps, UseFormRegister, useController, useForm } from "react-hook-form";
 
-
-const Container = styled.div`
+  const Container = styled.div`
     height: 90vh;
     overflow-y: scroll;
   `;
@@ -126,9 +120,31 @@ const Container = styled.div`
     }
   `;
 
+  enum Gender {
+    Male,
+    Female,
+    Other
+  }
+
+  type AddTeacherInput = {
+    firstName: string,
+    lastName: string,
+    gender: Gender,
+    dateOfBirth: string,
+    addr1: string,
+    addr2: string,
+    religion: string,
+    email:string,
+    phone:string,
+    password: string,
+    passwordConfirmation:string,
+    class:string,
+    admissionData:string
+  }
+
   interface InputProps {
     label:string,
-    required?:boolean,
+    required:boolean,
     isInvalid?: boolean,
     errorMessage?:string
   }
@@ -140,22 +156,6 @@ const Container = styled.div`
     isVisible?: boolean,
   }
 
-  const DatePicker = (prop:EInputProps) => {
-    const {field, fieldState} = useController(prop as UseControllerProps<AddTeacherInput>)
-      const {label, required} = prop
-
-    return(
-    <>
-      <InputItem>
-        <Label htmlFor={prop.name}>{label}<IsRequired isRequired={required ?? false} /></Label>
-        <Input type="date" isInvalid={fieldState.invalid} {...field}/>
-        <ValidationFeedback isInvalid={fieldState.invalid} 
-        isVisible={fieldState.invalid}>{fieldState.error?.message}</ValidationFeedback>
-      </InputItem>
-    </>
-    )
-  }
-
   const InputField = (prop: EInputProps) => {
       const {field, fieldState} = useController(prop as UseControllerProps<AddTeacherInput>)
       const {label, required} = prop
@@ -163,55 +163,25 @@ const Container = styled.div`
     return(
     <>
       <InputItem>
-        <Label htmlFor={prop.name}>{label}<IsRequired isRequired={required ?? false} /></Label>
-        <Input isInvalid={fieldState.invalid} {...field}/>
+        <Label>{label}<IsRequired isRequired={required} /></Label>
+        <Input {...field}/>
         <ValidationFeedback isInvalid={fieldState.invalid} 
         isVisible={fieldState.invalid}>{fieldState.error?.message}</ValidationFeedback>
       </InputItem>
     </>
     )
   }
-
-  type FieldRegProp = {
-    name: Path<AddTeacherInput>,
-    register: UseFormRegister<AddTeacherInput>,
-    control: UseControllerProps<AddTeacherInput>,
-    required?: boolean,
-    isValid?: boolean,
-    message?: string
-  }
-
-  interface IItems {
-    value: string | number,
-    label: string | number,
-    
-  }
-
-  interface SelectionPropsExtension {
-    label:string,
-    items: Array<IItems>,
-    onSelect: (value: any) => void,
-  }
-
-  type SelectionOptionsProps = FieldRegProp & SelectionPropsExtension
-
-
+  
   const IsRequired = (prop:{isRequired: boolean}) => {
     return (
       <IsRequiredIndicator>{prop.isRequired ? "*" : ""}</IsRequiredIndicator>
     );
   };
   
-
-
-
-const AddTeacherPage = () => {
-  const formRef = createRef<HTMLFormElement>();
-  const teacherPhotoRef = createRef<HTMLInputElement>();
-  const {register, formState:{errors}, control, handleSubmit, setValue}
-   = useForm<AddTeacherInput>(
-    {resolver: zodResolver(teacherSchema)}
-   );
+  const AddTeacher = () => {
+    const formRef = createRef<HTMLFormElement>();
+    const teacherPhotoRef = createRef<HTMLInputElement>();
+    const {register, formState:{errors}, control} = useForm<AddTeacherInput>();
   
     const [profileImage, setProfileImage] = useState<
       string | ArrayBuffer | null
@@ -234,13 +204,15 @@ const AddTeacherPage = () => {
       
     };
   
-
-  return (
-    <Container>
-        <PageContainer>
+    const getFormInput = (name: string) => {
+      return formInputs.filter((form) => form.name === name)[0];
+    };
+  
+    return (
+      <Container>
         <Form
           ref={formRef}
-          onSubmit={handleSubmit((d) => console.log(d))}
+          onSubmit={handlerForm}
           onInput={handleFormInput}
           method="post"
         >
@@ -252,38 +224,34 @@ const AddTeacherPage = () => {
               <SectionTitle>Teacher Info</SectionTitle>
               <InputRow>
                 <InputField label="First Name" name="firstName" control={control} required/>
-                <InputField label="Middle Name" name="middleName" control={control}/>
                 <InputField label="Last Name" name="lastName" control={control} required/>
               </InputRow>
   
               <InputRow>
-              <DatePicker label="Date Of Birth" name="dateOfBirth" control={control} required/>
-              <SelectionOptions name="gender" label="Gender" 
-              onSelect={(value) => {}}
-              items={[{label: "Male", value: "Male"}, {label: "Female", value: "Female"}]} 
-              register={register}
-              control={{name: "gender", control: control}}
-              message={errors.gender?.message}
-              required/>
+              <InputField label="Gender" name="gender" control={control} required/>
+              <InputField label="Gender" name="gender" control={control} required/>              
               </InputRow>
 
               <InputRow>
-                <InputField label="Address Line 1" name="addr1" control={control} required/>
-              </InputRow>
-              <InputRow>
-                <InputField label="Address Line 2" name="addr2" control={control}/>
+                <InputField label="Gender" name="gender" control={control} required/>
+                <InputField label="Gender" name="gender" control={control} required/>
               </InputRow>
               
+              
+              
               <InputRow>
-                <InputField label="Email" name="email" control={control} required/>
-                <InputField label="Phone Number" name="phone" control={control} rules={{pattern: /^[0-9]+$/}} required/>
+                <InputField label="Gender" name="gender" control={control} required/>
+                <InputField label="Gender" name="gender" control={control} required/>
               </InputRow>
-
+  
               <InputRow>
-                <InputField label="Password" name="password" control={control} required/>
-                <InputField label="Password Confirmation" name="passwordConfirmation" 
-                control={control} required/>
-
+                <InputField label="Gender" name="gender" control={control} required/>
+                <InputField label="Gender" name="gender" control={control} required/>
+              </InputRow>
+  
+              <InputRow>
+                <InputField label="Gender" name="gender" control={control} required/>
+                <InputField label="Gender" name="gender" control={control} required/>
               </InputRow>
             </FormSection>
   
@@ -296,11 +264,11 @@ const AddTeacherPage = () => {
                 {/* <Label htmlFor={FormField.profile_img.name}>
                   {FormField.profile_img.label}
                 </Label> */}
-                {/* <Input
+                <Input
                   ref={teacherPhotoRef}
                   style={{border: "unset"}}
                   type="file"
-                                  /> */}
+                                  />
                 {/* <ValidationFeedback
                   isVisible={
                     getFormInput(FormField.profile_img.name).isInvalid
@@ -322,9 +290,9 @@ const AddTeacherPage = () => {
             <Button type="reset">Reset</Button>
           </ButtonContainer>
         </Form>
-        </PageContainer>
-    </Container>
-  )
-}
-
-export default AddTeacherPage
+      </Container>
+    );
+  };
+  
+  export default AddTeacher;
+  

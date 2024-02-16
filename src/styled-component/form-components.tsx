@@ -75,9 +75,9 @@ const Input = styled("input").withConfig({
   border-radius: 2px;
   border: 1px solid
     ${(props) => (props.isInvalid ? theme.colors.red : "grey")};
-  box-shadow: 0 0 0 2px
+  /* box-shadow: 0 0 0 2px
     ${(props) =>
-      props.isInvalid ? theme.colors.red : "transparent"};
+      props.isInvalid ? theme.colors.red : "transparent"}; */
   transition: all 0.25s ease;
 
   &:disabled{
